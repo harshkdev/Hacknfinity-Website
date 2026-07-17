@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { sponsors } from "@/data/mock";
 import { ExternalLink, ArrowRight, Users, Calendar, Trophy, CheckCircle } from "lucide-react";
+import { Section } from "@/components/ui/Section";
+import { Container } from "@/components/ui/Container";
 import { cn } from "@/lib/utils";
 
 const benefits = ["Reach 8,500+ highly engaged student developers", "Brand exposure across 200+ college chapters", "Direct access to top campus talent pipeline", "Speaking opportunities at national events", "Logo placement on all event materials", "Social media features to 1L+ followers"];
@@ -17,7 +19,7 @@ export default function SponsorsPage() {
 
   return (
     <div className="min-h-screen bg-[#050507] pt-24">
-      <section className="section-glow-top py-16 px-4 text-center">
+      <Section className="section-glow-top text-center">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
           <span className="badge inline-flex mb-4">Partners</span>
           <h1 className="font-display font-extrabold text-5xl sm:text-6xl text-[var(--text-primary)] mb-4">
@@ -27,9 +29,9 @@ export default function SponsorsPage() {
             Industry leaders who believe in India&apos;s next generation of tech innovators.
           </p>
         </motion.div>
-      </section>
+      </Section>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 pb-24 space-y-20">
+      <Container className="pb-24 space-y-20">
         {/* Stats */}
         <div className="grid grid-cols-3 gap-4">
           {[{ val: "9+", label: "Partners" }, { val: "3", label: "Years" }, { val: "₹50L+", label: "Prize Money" }].map((s) => (
@@ -131,7 +133,7 @@ export default function SponsorsPage() {
             </ul>
           </div>
         </motion.div>
-      </div>
+      </Container>
     </div>
   );
 }

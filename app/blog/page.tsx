@@ -6,6 +6,8 @@ import Link from "next/link";
 import { blogs } from "@/data/mock";
 import type { Blog } from "@/types";
 import { Search, Clock, Calendar, ArrowRight, BookOpen } from "lucide-react";
+import { Section } from "@/components/ui/Section";
+import { Container } from "@/components/ui/Container";
 import { cn, formatDate } from "@/lib/utils";
 
 const categories = ["All", "AI/ML", "Web Development", "Open Source", "DSA", "Web3", "Startups"];
@@ -25,7 +27,7 @@ export default function BlogPage() {
 
   return (
     <div className="min-h-screen bg-[#050507] pt-24">
-      <section className="section-glow-top py-16 px-4 text-center">
+      <Section className="section-glow-top text-center">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
           <span className="badge inline-flex mb-4">Blog</span>
           <h1 className="font-display font-extrabold text-5xl sm:text-6xl text-[var(--text-primary)] mb-4">
@@ -33,10 +35,10 @@ export default function BlogPage() {
           </h1>
           <p className="text-[var(--text-body)] text-lg max-w-xl mx-auto">Insights on AI, Web Dev, Open Source, DSA, and student careers.</p>
         </motion.div>
-      </section>
+      </Section>
 
       {/* Filters */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 mb-10 space-y-4">
+      <Container className="mb-10 space-y-4">
         <div className="relative">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--text-muted)]" />
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search articles, tags..." className="w-full bg-[var(--bg-card)] border border-[var(--border-subtle)] rounded-full pl-12 pr-6 py-3 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-purple-500/50 transition-colors" />
@@ -46,9 +48,9 @@ export default function BlogPage() {
             <button key={c} onClick={() => setCategory(c)} className={cn("px-4 py-1.5 rounded-full text-sm font-medium border transition-all", category === c ? "bg-gradient-to-r from-purple-500 to-cyan-500 text-white border-transparent" : "border-[var(--border-brand)] text-[var(--text-body)] hover:bg-purple-500/10")}>{c}</button>
           ))}
         </div>
-      </div>
+      </Container>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 pb-24">
+      <Container className="pb-24">
         {/* Featured */}
         {featured && !search && category === "All" && (
           <motion.div className="glass-card overflow-hidden mb-10 grid md:grid-cols-2" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} whileHover={{ y: -4 }} transition={{ type: "spring", stiffness: 200 }}>
@@ -82,7 +84,7 @@ export default function BlogPage() {
             {(search || category !== "All" ? filtered : rest).map((blog, i) => <BlogCard key={blog.id} blog={blog} index={i} />)}
           </div>
         )}
-      </div>
+      </Container>
     </div>
   );
 }

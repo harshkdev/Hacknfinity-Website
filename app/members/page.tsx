@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { GraduationCap, ChevronRight } from "lucide-react";
 import { GithubIcon, TwitterIcon, LinkedinIcon } from "@/components/icons/SocialIcons";
+import { Section } from "@/components/ui/Section";
+import { Container } from "@/components/ui/Container";
 import { members } from "@/data/mock";
 import type { Member } from "@/types";
 import { cn } from "@/lib/utils";
@@ -19,7 +21,7 @@ export default function MembersPage() {
   return (
     <div className="min-h-screen bg-[#050507] pt-24">
       {/* Hero */}
-      <section className="section-glow-top py-20 text-center px-4">
+      <Section className="section-glow-top text-center">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <span className="badge inline-flex mb-4">The Team</span>
           <h1 className="font-display font-extrabold text-5xl sm:text-6xl text-[var(--text-primary)] mb-4">
@@ -29,10 +31,10 @@ export default function MembersPage() {
             The passionate students behind India&apos;s largest tech community. {members.length} members and growing.
           </p>
         </motion.div>
-      </section>
+      </Section>
 
       {/* Filters */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 mb-10">
+      <Container className="mb-10">
         <div className="flex flex-wrap gap-2 justify-center">
           {teams.map((team) => (
             <button
@@ -49,10 +51,10 @@ export default function MembersPage() {
             </button>
           ))}
         </div>
-      </div>
+      </Container>
 
       {/* Grid */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 pb-24">
+      <Container className="pb-24">
         <motion.div layout className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
           <AnimatePresence mode="popLayout">
             {filtered.map((member) => (
@@ -60,7 +62,7 @@ export default function MembersPage() {
             ))}
           </AnimatePresence>
         </motion.div>
-      </div>
+      </Container>
     </div>
   );
 }

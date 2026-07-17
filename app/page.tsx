@@ -14,6 +14,7 @@ import { stats, events, sponsors, testimonials } from "@/data/mock";
 import { cn, formatDate } from "@/lib/utils";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
+import { Section } from "@/components/ui/Section";
 
 // ─── Particle Canvas ────────────────────────────────────────────────────────
 function ParticleField() {
@@ -130,9 +131,10 @@ export default function HomePage() {
         <div className="absolute -bottom-32 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-purple-500/10 rounded-full blur-[120px] pointer-events-none" />
 
         {/* ── Two-column layout on lg, single column below ── */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-12 xl:gap-20">
+        <div className="w-full block">
+          <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-12 xl:gap-20">
 
-          {/* Left column — copy */}
+            {/* Left column — copy */}
           <motion.div
             className="flex-1 text-center lg:text-left max-w-2xl lg:max-w-[720px]"
             initial="hidden" animate="visible" variants={stagger}
@@ -216,6 +218,7 @@ export default function HomePage() {
               </div>
             </div>
           </motion.div>
+          </div>
         </div>
 
         {/* Scroll indicator */}
@@ -229,8 +232,7 @@ export default function HomePage() {
       </section>
 
       {/* ─── STATS ─── */}
-      <section className="section-padding section-glow-bottom" ref={statsRef}>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <Section className="section-padding section-glow-bottom" ref={statsRef}>
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -250,13 +252,13 @@ export default function HomePage() {
               return (
                 <motion.div
                   key={stat.label}
-                  className="glass-card stat-card"
+                  className="glass-card stat-card flex flex-col items-center justify-center text-center"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1, duration: 0.5 }}
                 >
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500/20 to-cyan-500/20 flex items-center justify-center mx-auto mb-4 border border-purple-500/20">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500/20 to-cyan-500/20 flex items-center justify-center mb-4 border border-purple-500/20">
                     {Icon && <Icon className="w-6 h-6 text-purple-400" />}
                   </div>
                   <div className="stat-number">
@@ -273,12 +275,10 @@ export default function HomePage() {
               );
             })}
           </div>
-        </div>
-      </section>
+        </Section>
 
       {/* ─── VALUE PROPS ─── */}
-      <section className="section-padding">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <Section className="section-padding">
           <motion.div className="text-center mb-14" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
             <motion.p variants={fadeUp} className="badge inline-flex mb-4">Why Hacknfinity?</motion.p>
             <motion.h2 variants={fadeUp} className="font-display font-bold text-4xl sm:text-5xl text-[var(--text-primary)] mb-4">
@@ -314,12 +314,10 @@ export default function HomePage() {
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
+        </Section>
 
       {/* ─── FEATURED EVENTS ─── */}
-      <section className="section-padding section-glow-top">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <Section className="section-padding section-glow-top">
           <motion.div className="flex items-end justify-between mb-12" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
             <div>
               <motion.p variants={fadeUp} className="badge inline-flex mb-3">Events</motion.p>
@@ -343,12 +341,10 @@ export default function HomePage() {
           <div className="text-center mt-8 sm:hidden">
             <Link href="/events" className="btn-secondary">View All Events <ArrowRight className="w-4 h-4" /></Link>
           </div>
-        </div>
-      </section>
+        </Section>
 
       {/* ─── SPONSORS MARQUEE ─── */}
-      <section className="section-padding">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <Section className="section-padding overflow-hidden">
           <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
             className="text-center text-sm text-[var(--text-muted)] uppercase tracking-widest mb-10">
             Trusted by Industry Leaders
@@ -373,12 +369,10 @@ export default function HomePage() {
               ))}
             </div>
           </div>
-        </div>
-      </section>
+        </Section>
 
       {/* ─── TESTIMONIALS ─── */}
-      <section className="section-padding section-glow-bottom">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+      <Section className="section-padding section-glow-bottom overflow-hidden">
           <motion.div className="text-center mb-12" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
             <motion.p variants={fadeUp} className="badge inline-flex mb-4">Testimonials</motion.p>
             <motion.h2 variants={fadeUp} className="font-display font-bold text-4xl sm:text-5xl text-[var(--text-primary)]">
@@ -386,9 +380,9 @@ export default function HomePage() {
             </motion.h2>
           </motion.div>
           <div className="overflow-hidden" ref={emblaRef}>
-            <div className="flex">
+            <div className="flex -mx-4 sm:-mx-6">
               {testimonials.map((t) => (
-                <div key={t.id} className="flex-[0_0_100%] sm:flex-[0_0_50%] px-3 min-w-0">
+                <div key={t.id} className="flex-[0_0_100%] sm:flex-[0_0_50%] px-4 sm:px-6 min-w-0">
                   <div className="glass-card p-7 h-full flex flex-col">
                     <div className="flex mb-4">
                       {Array.from({ length: 5 }).map((_, i) => (
@@ -409,12 +403,10 @@ export default function HomePage() {
               ))}
             </div>
           </div>
-        </div>
-      </section>
+        </Section>
 
       {/* ─── CTA BANNER ─── */}
-      <section className="section-padding">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+      <Section className="section-padding">
           <motion.div
             className="relative rounded-3xl p-10 sm:p-16 text-center overflow-hidden border border-purple-500/20"
             initial={{ opacity: 0, y: 40 }}
@@ -444,8 +436,7 @@ export default function HomePage() {
               </div>
             </div>
           </motion.div>
-        </div>
-      </section>
+        </Section>
     </div>
   );
 }

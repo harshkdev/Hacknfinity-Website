@@ -6,6 +6,8 @@ import { Mail, MapPin, MessageSquare, Clock, Send, ChevronDown } from "lucide-re
 import { GithubIcon, TwitterIcon, LinkedinIcon, YoutubeIcon, InstagramIcon } from "@/components/icons/SocialIcons";
 import toast from "react-hot-toast";
 import { SOCIAL_LINKS } from "@/lib/utils";
+import { Section } from "@/components/ui/Section";
+import { Container } from "@/components/ui/Container";
 
 const faqs = [
   { q: "How can I join Hacknfinity?", a: "Sign up for free on our website. No fees, no gatekeeping. Just create an account and you're part of India's largest student tech community." },
@@ -41,15 +43,15 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-[#050507] pt-24">
-      <section className="section-glow-top py-16 px-4 text-center">
+      <Section className="section-glow-top text-center">
         <motion.div initial={{opacity:0,y:30}} animate={{opacity:1,y:0}}>
           <span className="badge inline-flex mb-4">Contact</span>
           <h1 className="font-display font-extrabold text-5xl sm:text-6xl text-[var(--text-primary)] mb-4">Get in <span className="text-gradient">Touch</span></h1>
           <p className="text-[var(--text-body)] text-lg max-w-xl mx-auto">Have a question or want to collaborate? We'd love to hear from you.</p>
         </motion.div>
-      </section>
+      </Section>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 pb-24">
+      <Container className="pb-24">
         {/* Main grid */}
         <div className="grid lg:grid-cols-2 gap-8 mb-16">
           <motion.form onSubmit={submit} className="glass-card p-8" initial={{opacity:0,x:-30}} animate={{opacity:1,x:0}}>
@@ -131,7 +133,7 @@ export default function ContactPage() {
             ))}
           </div>
         </div>
-      </div>
+      </Container>
     </div>
   );
 }

@@ -41,7 +41,7 @@ export default function OpportunitiesPage() {
         </motion.div>
       </section>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 mb-8 space-y-3">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-8 space-y-3">
         <div className="flex flex-wrap gap-2">
           {typeTabs.map(t=><button key={t} onClick={()=>setType(t)} className={cn("px-4 py-1.5 rounded-full text-sm font-semibold border transition-all",type===t?"bg-gradient-to-r from-purple-500 to-cyan-500 text-white border-transparent":"border-[var(--border-brand)] text-[var(--text-body)] hover:bg-purple-500/10")}>{t}</button>)}
         </div>
@@ -51,7 +51,7 @@ export default function OpportunitiesPage() {
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 pb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-16">
         <div className="grid md:grid-cols-2 gap-5 mb-16">
           {filtered.map((o,i)=>{
             const days = getDaysLeft(o.deadline);

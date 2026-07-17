@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, MapPin, Clock, Users, Search, ArrowRight } from "lucide-react";
+import { Section } from "@/components/ui/Section";
+import { Container } from "@/components/ui/Container";
 import { events } from "@/data/mock";
 import type { Event } from "@/types";
 import { cn, formatDate } from "@/lib/utils";
@@ -26,7 +28,7 @@ export default function EventsPage() {
   return (
     <div className="min-h-screen bg-[#050507] pt-24">
       {/* Hero */}
-      <section className="section-glow-top py-16 px-4 text-center">
+      <Section className="section-glow-top text-center">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
           <span className="badge inline-flex mb-4">All Events</span>
           <h1 className="font-display font-extrabold text-5xl sm:text-6xl text-[var(--text-primary)] mb-4">
@@ -41,11 +43,11 @@ export default function EventsPage() {
             ))}
           </div>
         </motion.div>
-      </section>
+      </Section>
 
       {/* Filters */}
       <div className="sticky top-16 z-30 bg-[#050507]/90 backdrop-blur border-b border-[var(--border-subtle)] py-4">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-3">
+        <Container className="space-y-3">
           <div className="flex flex-wrap gap-2">
             {statusTabs.map((t) => (
               <button key={t} onClick={() => setStatus(t)} className={cn("px-4 py-1.5 rounded-full text-sm font-semibold border transition-all", status === t ? "bg-gradient-to-r from-purple-500 to-cyan-500 text-white border-transparent" : "border-[var(--border-brand)] text-[var(--text-body)] hover:bg-purple-500/10")}>
@@ -64,11 +66,11 @@ export default function EventsPage() {
               </button>
             ))}
           </div>
-        </div>
+        </Container>
       </div>
 
       {/* Grid */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+      <Section className="py-12">
         {filtered.length === 0 ? (
           <div className="text-center py-24 text-[var(--text-muted)]">
             <div className="text-5xl mb-4">🔍</div>
@@ -86,7 +88,7 @@ export default function EventsPage() {
             </AnimatePresence>
           </motion.div>
         )}
-      </div>
+      </Section>
     </div>
   );
 }

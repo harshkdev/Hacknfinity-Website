@@ -68,19 +68,21 @@ export default function Navbar() {
       style={{ top: "var(--banner-height, 0px)" }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex lg:grid lg:grid-cols-[1fr_auto_1fr] items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative h-8 w-auto flex-shrink-0 flex items-center justify-center">
-              <Image src="/logo.png" alt="Hacknfinity Logo" width={60} height={60} className="w-auto h-full drop-shadow-md group-hover:drop-shadow-[0_0_8px_rgba(168,85,247,0.8)] transition-all duration-300" priority />
-            </div>
-            <span className="font-display font-bold text-lg tracking-widest text-gradient hidden sm:block">
-              HACKNFINITY
-            </span>
-          </Link>
+          <div className="flex items-center justify-start">
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="relative h-8 w-auto flex-shrink-0 flex items-center justify-center">
+                <Image src="/logo.png" alt="Hacknfinity Logo" width={60} height={60} className="w-auto h-full drop-shadow-md group-hover:drop-shadow-[0_0_8px_rgba(168,85,247,0.8)] transition-all duration-300" priority />
+              </div>
+              <span className="font-display font-bold text-lg tracking-widest text-gradient hidden sm:block">
+                HACKNFINITY
+              </span>
+            </Link>
+          </div>
 
           {/* Desktop Nav - Perfectly Centered */}
-          <div className="hidden lg:flex items-center justify-center absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 gap-1 xl:gap-2">
+          <div className="hidden lg:flex items-center justify-center gap-4 xl:gap-8">
             {navLinks.map((link) =>
               link.children ? (
                 <div
@@ -89,36 +91,38 @@ export default function Navbar() {
                   onMouseEnter={() => setActiveDropdown(link.label)}
                   onMouseLeave={() => setActiveDropdown(null)}
                 >
-                  <button className="flex items-center gap-1.5 px-4 py-2.5 text-[15px] font-medium text-[var(--text-body)] hover:text-[var(--text-primary)] transition-all rounded-lg hover:bg-white/5 data-[state=open]:bg-white/5 data-[state=open]:text-[var(--text-primary)]">
+                  <button className="flex items-center gap-1.5 px-3 py-2 text-[15px] font-medium text-[var(--text-body)] hover:text-white transition-colors active:transform-none group/btn">
                     {link.label}
                     <ChevronDown
                       className={cn(
-                        "w-4 h-4 transition-transform duration-200 opacity-70",
-                        activeDropdown === link.label && "rotate-180 opacity-100"
+                        "w-4 h-4 transition-transform duration-200 opacity-70 group-hover/btn:opacity-100",
+                        activeDropdown === link.label && "rotate-180 opacity-100 text-purple-400"
                       )}
                     />
                   </button>
                   
                   {/* Invisible bridge to prevent hover loss */}
-                  <div className="absolute top-[100%] left-0 w-full h-4" />
+                  <div className="absolute top-full left-0 w-full h-2" />
                   
-                  {/* Dropdown Menu */}
+                  {/* Dropdown Menu - Bulletproof Centering */}
                   {activeDropdown === link.label && (
-                    <div className="absolute top-[calc(100%+8px)] left-1/2 -translate-x-1/2 w-[220px] glass-card py-3 shadow-2xl rounded-xl border border-white/10 animate-in fade-in slide-in-from-top-2 duration-200">
-                      {link.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          className={cn(
-                            "flex items-center px-5 py-2.5 text-[15px] transition-colors",
-                            pathname === child.href 
-                              ? "text-purple-400 font-medium bg-purple-500/10" 
-                              : "text-[var(--text-body)] hover:text-[var(--text-primary)] hover:bg-white/5"
-                          )}
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
+                    <div className="absolute top-full mt-2 left-0 right-0 flex justify-center pointer-events-none z-50">
+                      <div className="w-[220px] shrink-0 pointer-events-auto glass-card py-3 shadow-2xl rounded-xl border border-white/10 animate-in fade-in slide-in-from-top-2 duration-200">
+                        {link.children.map((child) => (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            className={cn(
+                              "flex items-center px-5 py-2.5 text-[15px] transition-colors",
+                              pathname === child.href 
+                                ? "text-purple-400 font-medium bg-purple-500/10" 
+                                : "text-[var(--text-body)] hover:text-[var(--text-primary)] hover:bg-white/5"
+                            )}
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
                   )}
                 </div>
@@ -127,20 +131,23 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "px-4 py-2.5 text-[15px] font-medium transition-all rounded-lg",
+                    "relative px-3 py-2 text-[15px] font-medium transition-colors",
                     pathname === link.href
-                      ? "text-[var(--text-primary)] bg-white/10 shadow-[0_0_15px_rgba(255,255,255,0.1)]"
-                      : "text-[var(--text-body)] hover:text-[var(--text-primary)] hover:bg-white/5"
+                      ? "text-white"
+                      : "text-[var(--text-body)] hover:text-white"
                   )}
                 >
                   {link.label}
+                  {pathname === link.href && (
+                    <span className="absolute inset-x-0 -bottom-1 h-[2px] rounded-full bg-gradient-to-r from-purple-400 to-cyan-400 shadow-[0_0_8px_rgba(168,85,247,0.8)]" />
+                  )}
                 </Link>
               )
             )}
           </div>
 
           {/* Actions */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center justify-end gap-4">
             <button
               onClick={toggleTheme}
               className="hidden sm:flex p-2 rounded-full hover:bg-white/10 transition-colors text-[var(--text-muted)] hover:text-[var(--text-primary)]"

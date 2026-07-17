@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Rocket, Eye, BookOpen, Link2, Building2, Lightbulb, ArrowRight, Users, Calendar } from "lucide-react";
+import { Section } from "@/components/ui/Section";
 
 const timeline = [
   { year: "2022 Q1", title: "Hacknfinity Founded", desc: "Two friends, one dream: make tech education accessible to every Indian student.", color: "from-purple-500 to-pink-500" },
@@ -26,7 +27,7 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-[#050507] pt-24 overflow-x-hidden">
       {/* Hero */}
-      <section className="section-glow-top py-20 text-center px-4">
+      <Section className="section-glow-top text-center">
         <motion.div initial="hidden" animate="visible" variants={stagger}>
           <motion.span variants={fadeUp} className="badge inline-flex mb-4">Our Story</motion.span>
           <motion.h1 variants={fadeUp} className="font-display font-extrabold text-5xl sm:text-6xl text-[var(--text-primary)] mb-6 max-w-3xl mx-auto leading-tight">
@@ -46,10 +47,10 @@ export default function AboutPage() {
             </div>
           </motion.div>
         </motion.div>
-      </section>
+      </Section>
 
       {/* Mission & Vision */}
-      <section className="section-padding max-w-5xl mx-auto px-4 sm:px-6">
+      <Section>
         <div className="grid md:grid-cols-2 gap-6">
           {[
             { icon: <Rocket className="w-7 h-7 text-purple-400" />, bg: "from-purple-500/20 to-pink-500/20", border: "border-purple-500/20", title: "Our Mission", text: "To democratize tech education and create a thriving ecosystem where every student, regardless of college or background, can learn, build, and succeed in technology." },
@@ -62,10 +63,10 @@ export default function AboutPage() {
             </motion.div>
           ))}
         </div>
-      </section>
+      </Section>
 
       {/* Timeline */}
-      <section className="section-padding max-w-4xl mx-auto px-4 sm:px-6">
+      <Section containerClassName="max-w-4xl">
         <motion.div className="text-center mb-14" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
           <span className="badge inline-flex mb-4">Timeline</span>
           <h2 className="font-display font-bold text-4xl text-[var(--text-primary)]">Our <span className="text-gradient">Journey</span></h2>
@@ -89,10 +90,10 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
-      </section>
+      </Section>
 
       {/* Goals */}
-      <section className="section-padding section-glow-bottom max-w-5xl mx-auto px-4 sm:px-6">
+      <Section className="section-glow-bottom">
         <motion.div className="text-center mb-12" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
           <span className="badge inline-flex mb-4">What We Stand For</span>
           <h2 className="font-display font-bold text-4xl text-[var(--text-primary)]">Community <span className="text-gradient">Goals</span></h2>
@@ -106,17 +107,17 @@ export default function AboutPage() {
             </motion.div>
           ))}
         </div>
-      </section>
+      </Section>
 
       {/* Team CTA */}
-      <section className="section-padding text-center px-4">
+      <Section className="text-center">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
           <h2 className="font-display font-bold text-3xl text-[var(--text-primary)] mb-4">
             Meet the people behind <span className="text-gradient">Hacknfinity</span>
           </h2>
           <Link href="/members" className="btn-primary inline-flex">Meet the Team <ArrowRight className="w-5 h-5" /></Link>
         </motion.div>
-      </section>
+      </Section>
     </div>
   );
 }

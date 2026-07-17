@@ -5,6 +5,8 @@ import Image from "next/image";
 import { resources } from "@/data/mock";
 import type { Resource } from "@/types";
 import { FileText, Download, Search, Github, Play, Map, Table2, ArrowRight, BookOpen } from "lucide-react";
+import { Section } from "@/components/ui/Section";
+import { Container } from "@/components/ui/Container";
 import { cn, formatDate } from "@/lib/utils";
 
 const typeIcons: Record<string, React.ReactNode> = {
@@ -29,7 +31,7 @@ export default function ResourcesPage() {
 
   return (
     <div className="min-h-screen bg-[#050507] pt-24">
-      <section className="section-glow-top py-16 px-4 text-center">
+      <Section className="section-glow-top text-center">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
           <span className="badge inline-flex mb-4">Free Resources</span>
           <h1 className="font-display font-extrabold text-5xl sm:text-6xl text-[var(--text-primary)] mb-4">Resource <span className="text-gradient">Hub</span></h1>
@@ -40,8 +42,8 @@ export default function ResourcesPage() {
             ))}
           </div>
         </motion.div>
-      </section>
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 mb-8 space-y-4">
+      </Section>
+      <Container className="mb-8 space-y-4">
         <div className="flex flex-wrap gap-2">
           {tabs.map(t=>(
             <button key={t} onClick={()=>setTab(t)} className={cn("px-4 py-1.5 rounded-full text-sm font-semibold border transition-all", tab===t?"bg-gradient-to-r from-purple-500 to-cyan-500 text-white border-transparent":"border-[var(--border-brand)] text-[var(--text-body)] hover:bg-purple-500/10")}>{t}</button>
@@ -51,8 +53,8 @@ export default function ResourcesPage() {
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)]" />
           <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search resources..." className="w-full bg-[var(--bg-card)] border border-[var(--border-subtle)] rounded-full pl-11 pr-6 py-2.5 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-purple-500/50 transition-colors" />
         </div>
-      </div>
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 pb-24">
+      </Container>
+      <Container className="pb-24">
         <div className="grid md:grid-cols-2 gap-5 mb-12">
           {filtered.map((r,i)=>(
             <motion.div key={r.id} className="glass-card p-6 flex gap-5" initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:i*0.05}} whileHover={{y:-4}}>
@@ -86,7 +88,7 @@ export default function ResourcesPage() {
             <button className="btn-primary">Contribute a Resource <ArrowRight className="w-4 h-4"/></button>
           </div>
         </motion.div>
-      </div>
+      </Container>
     </div>
   );
 }

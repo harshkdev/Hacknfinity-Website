@@ -5,6 +5,7 @@ import Link from "next/link";
 import { blogs } from "@/data/mock";
 import { Clock, Calendar, Tag, ArrowLeft, Link2 } from "lucide-react";
 import { TwitterIcon, LinkedinIcon } from "@/components/icons/SocialIcons";
+import { Container } from "@/components/ui/Container";
 import { formatDate } from "@/lib/utils";
 import toast from "react-hot-toast";
 
@@ -48,7 +49,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
         <span className="absolute bottom-6 left-6 badge">{blog.category}</span>
       </div>
 
-      <article className="max-w-3xl mx-auto px-4 sm:px-6 pb-24">
+      <Container className="max-w-3xl pb-24">
         {/* Back */}
         <Link href="/blog" className="flex items-center gap-2 text-sm text-[var(--text-muted)] hover:text-purple-400 mt-6 mb-6 transition-colors"><ArrowLeft className="w-4 h-4"/>Back to Blog</Link>
 
@@ -110,7 +111,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
             </div>
           </div>
         </div>
-      </article>
+      </Container>
     </div>
   );
 }

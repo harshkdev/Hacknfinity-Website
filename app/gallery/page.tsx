@@ -5,6 +5,8 @@ import Image from "next/image";
 import { gallery } from "@/data/mock";
 import type { GalleryItem } from "@/types";
 import { X, ChevronLeft, ChevronRight, Play } from "lucide-react";
+import { Section } from "@/components/ui/Section";
+import { Container } from "@/components/ui/Container";
 import { cn } from "@/lib/utils";
 
 export default function GalleryPage() {
@@ -33,7 +35,7 @@ export default function GalleryPage() {
 
   return (
     <div className="min-h-screen bg-[#050507] pt-24">
-      <section className="section-glow-top py-16 px-4 text-center">
+      <Section className="section-glow-top text-center">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
           <span className="badge inline-flex mb-4">Gallery</span>
           <h1 className="font-display font-extrabold text-5xl sm:text-6xl text-[var(--text-primary)] mb-4">
@@ -41,10 +43,10 @@ export default function GalleryPage() {
           </h1>
           <p className="text-[var(--text-body)] text-lg max-w-xl mx-auto">Moments from our hackathons, workshops, and events.</p>
         </motion.div>
-      </section>
+      </Section>
 
       {/* Event filter */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 mb-8 flex flex-wrap gap-2 justify-center">
+      <Container className="mb-8 flex flex-wrap gap-2 justify-center">
         {events.map((ev) => (
           <button key={ev} onClick={() => setActiveEvent(ev)}
             className={cn("px-4 py-1.5 rounded-full text-sm font-medium border transition-all",
@@ -53,10 +55,10 @@ export default function GalleryPage() {
             {ev}
           </button>
         ))}
-      </div>
+      </Container>
 
       {/* Masonry grid */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 pb-24">
+      <Container className="pb-24">
         <div className="masonry-grid">
           {filtered.map((item, i) => (
             <motion.div key={item.id} className="masonry-item cursor-pointer group relative overflow-hidden rounded-2xl"
@@ -71,7 +73,7 @@ export default function GalleryPage() {
             </motion.div>
           ))}
         </div>
-      </div>
+      </Container>
 
       {/* Lightbox */}
       <AnimatePresence>

@@ -45,7 +45,7 @@ export default function CommunityPage() {
         </motion.div>
       </section>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 pb-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-24">
         <div className="flex gap-3 mb-6">
           <div className="relative flex-1">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)]"/>

@@ -51,7 +51,7 @@ export default function Footer() {
       {/* Newsletter section */}
       <div className="bg-gradient-to-r from-purple-500/5 via-transparent to-cyan-500/5 border-b border-[var(--border-subtle)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="max-w-2xl mx-auto text-center">
+          <div className="max-w-2xl mx-auto text-center block" style={{ marginLeft: 'auto', marginRight: 'auto' }}>
             <h3 className="font-display font-bold text-2xl text-[var(--text-primary)] mb-2">
               Stay in the loop 🔔
             </h3>
@@ -74,7 +74,7 @@ export default function Footer() {
 
       {/* Main footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-6 gap-12">
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-3 mb-4 group">

@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, MapPin, Clock, Users, Check, Trophy, ChevronRight, Share2, X, Ticket, Download } from "lucide-react";
+import { Container } from "@/components/ui/Container";
 import { events } from "@/data/mock";
 import { cn, formatDate } from "@/lib/utils";
 import { useForm } from "react-hook-form";
@@ -51,13 +52,13 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
       </div>
 
       {/* Breadcrumb */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center gap-2 text-sm text-[var(--text-muted)]">
+      <Container className="py-4 flex items-center gap-2 text-sm text-[var(--text-muted)]">
         <Link href="/events" className="hover:text-purple-400">Events</Link>
         <ChevronRight className="w-4 h-4"/><span className="text-[var(--text-primary)] truncate">{event.title}</span>
-      </div>
+      </Container>
 
       {/* Main Content */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 pb-24 grid lg:grid-cols-3 gap-10">
+      <Container className="pb-24 grid lg:grid-cols-3 gap-10">
         {/* Left */}
         <div className="lg:col-span-2 space-y-10">
           <div>
@@ -131,7 +132,7 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
             <button className="btn-secondary w-full justify-center text-sm"><Share2 className="w-4 h-4"/>Share Event</button>
           </div>
         </div>
-      </div>
+      </Container>
 
       {/* Registration Modal */}
       <AnimatePresence>
