@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, Sun, Moon, ChevronDown } from "lucide-react";
 import { useTheme } from "@/components/providers/ThemeProvider";
@@ -70,63 +71,49 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-9 h-9">
-              <svg viewBox="0 0 40 24" className="w-full h-full" fill="none">
-                <defs>
-                  <linearGradient id="nav-left" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#A855F7" />
-                    <stop offset="100%" stopColor="#D946EF" />
-                  </linearGradient>
-                  <linearGradient id="nav-right" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#22D3EE" />
-                    <stop offset="100%" stopColor="#3B82F6" />
-                  </linearGradient>
-                </defs>
-                <path
-                  d="M20 12 C20 12 16 4 10 4 C4 4 0 8 0 12 C0 16 4 20 10 20 C16 20 20 12 20 12Z"
-                  fill="url(#nav-left)"
-                  className="group-hover:drop-shadow-[0_0_6px_rgba(168,85,247,0.8)] transition-all"
-                />
-                <path
-                  d="M20 12 C20 12 24 4 30 4 C36 4 40 8 40 12 C40 16 36 20 30 20 C24 20 20 12 20 12Z"
-                  fill="url(#nav-right)"
-                  className="group-hover:drop-shadow-[0_0_6px_rgba(34,211,238,0.8)] transition-all"
-                />
-              </svg>
+            <div className="relative h-8 w-auto flex-shrink-0 flex items-center justify-center">
+              <Image src="/logo.png" alt="Hacknfinity Logo" width={60} height={60} className="w-auto h-full drop-shadow-md group-hover:drop-shadow-[0_0_8px_rgba(168,85,247,0.8)] transition-all duration-300" priority />
             </div>
             <span className="font-display font-bold text-lg tracking-widest text-gradient hidden sm:block">
               HACKNFINITY
             </span>
           </Link>
 
-          {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-1">
+          {/* Desktop Nav - Perfectly Centered */}
+          <div className="hidden lg:flex items-center justify-center absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 gap-1 xl:gap-2">
             {navLinks.map((link) =>
               link.children ? (
                 <div
                   key={link.label}
-                  className="relative"
+                  className="relative group/dropdown"
                   onMouseEnter={() => setActiveDropdown(link.label)}
                   onMouseLeave={() => setActiveDropdown(null)}
                 >
-                  <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-[var(--text-body)] hover:text-[var(--text-primary)] transition-colors rounded-lg hover:bg-white/5">
+                  <button className="flex items-center gap-1.5 px-4 py-2.5 text-[15px] font-medium text-[var(--text-body)] hover:text-[var(--text-primary)] transition-all rounded-lg hover:bg-white/5 data-[state=open]:bg-white/5 data-[state=open]:text-[var(--text-primary)]">
                     {link.label}
                     <ChevronDown
                       className={cn(
-                        "w-3.5 h-3.5 transition-transform duration-200",
-                        activeDropdown === link.label && "rotate-180"
+                        "w-4 h-4 transition-transform duration-200 opacity-70",
+                        activeDropdown === link.label && "rotate-180 opacity-100"
                       )}
                     />
                   </button>
+                  
+                  {/* Invisible bridge to prevent hover loss */}
+                  <div className="absolute top-[100%] left-0 w-full h-4" />
+                  
+                  {/* Dropdown Menu */}
                   {activeDropdown === link.label && (
-                    <div className="absolute top-full left-0 mt-1 w-52 glass-card py-2 shadow-2xl">
+                    <div className="absolute top-[calc(100%+8px)] left-1/2 -translate-x-1/2 w-[220px] glass-card py-3 shadow-2xl rounded-xl border border-white/10 animate-in fade-in slide-in-from-top-2 duration-200">
                       {link.children.map((child) => (
                         <Link
                           key={child.href}
                           href={child.href}
                           className={cn(
-                            "block px-4 py-2 text-sm text-[var(--text-body)] hover:text-[var(--text-primary)] hover:bg-white/5 transition-colors",
-                            pathname === child.href && "text-purple-400 font-medium"
+                            "flex items-center px-5 py-2.5 text-[15px] transition-colors",
+                            pathname === child.href 
+                              ? "text-purple-400 font-medium bg-purple-500/10" 
+                              : "text-[var(--text-body)] hover:text-[var(--text-primary)] hover:bg-white/5"
                           )}
                         >
                           {child.label}
@@ -140,9 +127,9 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "px-3 py-2 text-sm font-medium transition-colors rounded-lg",
+                    "px-4 py-2.5 text-[15px] font-medium transition-all rounded-lg",
                     pathname === link.href
-                      ? "text-purple-400"
+                      ? "text-[var(--text-primary)] bg-white/10 shadow-[0_0_15px_rgba(255,255,255,0.1)]"
                       : "text-[var(--text-body)] hover:text-[var(--text-primary)] hover:bg-white/5"
                   )}
                 >
@@ -153,23 +140,24 @@ export default function Navbar() {
           </div>
 
           {/* Actions */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-4">
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-full hover:bg-white/10 transition-colors text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+              className="hidden sm:flex p-2 rounded-full hover:bg-white/10 transition-colors text-[var(--text-muted)] hover:text-[var(--text-primary)]"
               aria-label="Toggle theme"
             >
               {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
-
-            <div className="hidden sm:flex items-center gap-2">
-              <Link href="/sign-in" className="btn-secondary text-sm px-4 py-2">
+            <div className="hidden sm:flex items-center gap-3 border-l border-white/10 pl-4">
+              <Link href="/login" className="text-[15px] font-medium text-[var(--text-body)] hover:text-[var(--text-primary)] transition-colors px-4 py-2">
                 Log In
               </Link>
-              <Link href="/sign-up" className="btn-primary text-sm px-4 py-2">
+              <Link href="/signup" className="btn-primary text-[15px] px-6 py-2.5">
                 Join Free
               </Link>
             </div>
+            
+
 
             <button
               className="lg:hidden p-2 rounded-lg hover:bg-white/10 transition-colors text-[var(--text-body)]"

@@ -4,7 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import AnnouncementBanner from "@/components/layout/AnnouncementBanner";
+
 import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
@@ -62,7 +62,6 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}>
         <ThemeProvider>
-          <AnnouncementBanner />
           <Navbar />
           <main>{children}</main>
           <Footer />

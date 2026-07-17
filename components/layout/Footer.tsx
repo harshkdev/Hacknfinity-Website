@@ -1,5 +1,8 @@
+"use client";
 import Link from "next/link";
-import { Github, Twitter, Linkedin, Youtube, MessageSquare, Mail, MapPin, Phone } from "lucide-react";
+import Image from "next/image";
+import { MessageSquare, Mail, MapPin, Phone } from "lucide-react";
+import { GithubIcon, TwitterIcon, LinkedinIcon, YoutubeIcon, DiscordIcon } from "@/components/icons/SocialIcons";
 import { SOCIAL_LINKS } from "@/lib/utils";
 
 const footerLinks = {
@@ -31,17 +34,17 @@ const footerLinks = {
 
 const socialLinks = [
   { icon: MessageSquare, href: SOCIAL_LINKS.discord, label: "Discord", color: "hover:text-indigo-400" },
-  { icon: Github, href: SOCIAL_LINKS.github, label: "GitHub", color: "hover:text-white" },
-  { icon: Twitter, href: SOCIAL_LINKS.twitter, label: "Twitter / X", color: "hover:text-sky-400" },
-  { icon: Linkedin, href: SOCIAL_LINKS.linkedin, label: "LinkedIn", color: "hover:text-blue-400" },
-  { icon: Youtube, href: SOCIAL_LINKS.youtube, label: "YouTube", color: "hover:text-red-400" },
+  { icon: GithubIcon, href: SOCIAL_LINKS.github, label: "GitHub", color: "hover:text-white" },
+  { icon: TwitterIcon, href: SOCIAL_LINKS.twitter, label: "Twitter / X", color: "hover:text-sky-400" },
+  { icon: LinkedinIcon, href: SOCIAL_LINKS.linkedin, label: "LinkedIn", color: "hover:text-blue-400" },
+  { icon: YoutubeIcon, href: SOCIAL_LINKS.youtube, label: "YouTube", color: "hover:text-red-400" },
 ];
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative border-t border-[var(--border-subtle)] mt-20">
+    <footer className="relative border-t border-[var(--border-subtle)] mt-20 overflow-hidden w-full">
       {/* Top glow */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
 
@@ -74,22 +77,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-3 mb-4">
-              <div className="relative w-10 h-6">
-                <svg viewBox="0 0 40 24" className="w-full h-full" fill="none">
-                  <defs>
-                    <linearGradient id="footer-left" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#A855F7" />
-                      <stop offset="100%" stopColor="#D946EF" />
-                    </linearGradient>
-                    <linearGradient id="footer-right" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#22D3EE" />
-                      <stop offset="100%" stopColor="#3B82F6" />
-                    </linearGradient>
-                  </defs>
-                  <path d="M20 12 C20 12 16 4 10 4 C4 4 0 8 0 12 C0 16 4 20 10 20 C16 20 20 12 20 12Z" fill="url(#footer-left)" />
-                  <path d="M20 12 C20 12 24 4 30 4 C36 4 40 8 40 12 C40 16 36 20 30 20 C24 20 20 12 20 12Z" fill="url(#footer-right)" />
-                </svg>
+            <Link href="/" className="flex items-center gap-3 mb-4 group">
+              <div className="relative h-8 w-auto">
+                <Image src="/logo.png" alt="Hacknfinity Logo" width={60} height={60} className="w-auto h-full drop-shadow-md group-hover:drop-shadow-[0_0_8px_rgba(168,85,247,0.8)] transition-all duration-300" />
               </div>
               <span className="font-display font-bold text-lg tracking-widest text-gradient">
                 HACKNFINITY
