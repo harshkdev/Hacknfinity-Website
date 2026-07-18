@@ -67,10 +67,11 @@ export function generateCertificateId(prefix: string = "HNF"): string {
 }
 
 export const SOCIAL_LINKS = {
-  discord: "https://discord.gg/hacknfinity",
+  discord: "https://discord.com/invite/Bne9UJV5x",
   github: "https://github.com/hacknfinity",
-  twitter: "https://twitter.com/hacknfinity",
-  linkedin: "https://linkedin.com/company/hacknfinity",
-  instagram: "https://instagram.com/hacknfinity",
+  twitter: "https://x.com/hacknfinity",
+  linkedin: "https://www.linkedin.com/company/hacknfinity/",
+  instagram: "https://www.instagram.com/hacknfinity",
+  whatsapp: "https://api.whatsapp.com/send/?phone=919560249079&text&type=phone_number&app_absent=0",
   youtube: "https://youtube.com/@hacknfinity",
 };

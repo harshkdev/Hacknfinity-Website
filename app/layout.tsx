@@ -53,15 +53,37 @@ export const metadata: Metadata = {
   },
 };
 
+import { ClerkProvider } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}>
-        <ThemeProvider>
+    <ClerkProvider appearance={{ 
+      baseTheme: dark,
+      variables: { 
+        colorPrimary: "#a855f7", 
+        colorBackground: "#0d0d12", 
+        colorInputBackground: "transparent", 
+        colorInputText: "white",
+        colorText: "white",
+        colorTextSecondary: "#a1a1aa",
+      },
+      elements: {
+        userButtonPopoverCard: "bg-[#0d0d12] border border-purple-500/20 shadow-xl shadow-purple-500/10",
+        userPreviewMainIdentifier: "text-white font-medium",
+        userPreviewSecondaryIdentifier: "text-gray-400",
+        userButtonPopoverActionButton: "hover:bg-white/5",
+        userButtonPopoverActionButtonText: "text-white",
+        userButtonPopoverActionButtonIcon: "text-white"
+      }
+    }}>
+      <html lang="en" suppressHydrationWarning>
+        <body className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}>
+          <ThemeProvider>
           <Navbar />
           <main>{children}</main>
           <Footer />
@@ -77,7 +99,8 @@ export default function RootLayout({
             }}
           />
         </ThemeProvider>
-      </body>
-    </html>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

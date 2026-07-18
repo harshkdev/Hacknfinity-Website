@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import CountUp from "react-countup";
 import { useInView as useInViewObs } from "react-intersection-observer";
-import { stats, events, sponsors, testimonials } from "@/data/mock";
+import { stats, testimonials } from "@/data/mock";
 import { cn, formatDate } from "@/lib/utils";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
@@ -68,7 +68,7 @@ const statIcons: Record<string, React.FC<{ className?: string }>> = {
 };
 
 // ─── Event Card ──────────────────────────────────────────────────────────────
-function EventCard({ event }: { event: typeof events[0] }) {
+function EventCard({ event }: { event: any }) {
   const statusColor = event.status === "upcoming" ? "bg-green-500/20 text-green-400 border-green-500/30"
     : event.status === "ongoing" ? "bg-amber-500/20 text-amber-400 border-amber-500/30"
     : "bg-gray-500/20 text-gray-400 border-gray-500/30";
@@ -113,6 +113,14 @@ function EventCard({ event }: { event: typeof events[0] }) {
 export default function HomePage() {
   const [statsRef, statsInView] = useInViewObs({ threshold: 0.2, triggerOnce: true });
   const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 4000 })]);
+
+  const [events, setEvents] = useState<any[]>([]);
+  const [sponsors, setSponsors] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch("/api/events", { cache: "no-store" }).then(res => res.json()).then(data => { if (Array.isArray(data)) setEvents(data); }).catch(console.error);
+    fetch("/api/sponsors", { cache: "no-store" }).then(res => res.json()).then(data => { if (Array.isArray(data)) setSponsors(data); }).catch(console.error);
+  }, []);
 
   const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } };
   const stagger = { visible: { transition: { staggerChildren: 0.1 } } };
@@ -263,10 +271,7 @@ export default function HomePage() {
                   </div>
                   <div className="stat-number">
                     {statsInView ? (
-                      <CountUp start={0} end={stat.numericValue > 10000 ? stat.numericValue / 1000 : stat.numericValue}
-                        duration={2.5} decimals={stat.numericValue > 10000 ? 1 : 0}
-                        suffix={stat.numericValue > 10000 ? "L" + stat.suffix : stat.suffix}
-                      />
+                      <CountUp start={0} end={stat.numericValue} duration={2.5} suffix={stat.suffix} />
                     ) : "0"}
                   </div>
                   <div className="font-display font-semibold text-[var(--text-primary)] mt-2 mb-1">{stat.label}</div>
@@ -278,8 +283,8 @@ export default function HomePage() {
         </Section>
 
       {/* ─── VALUE PROPS ─── */}
-      <Section className="section-padding">
-          <motion.div className="text-center mb-14" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
+      <Section className="py-12 lg:py-16">
+          <motion.div className="text-center mb-10" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
             <motion.p variants={fadeUp} className="badge inline-flex mb-4">Why Hacknfinity?</motion.p>
             <motion.h2 variants={fadeUp} className="font-display font-bold text-4xl sm:text-5xl text-[var(--text-primary)] mb-4">
               Everything You Need to <span className="text-gradient">Level Up</span>
@@ -288,20 +293,20 @@ export default function HomePage() {
               From hackathons to resources to a thriving community — we&apos;ve got you covered.
             </motion.p>
           </motion.div>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {[
-              { icon: <Zap className="w-6 h-6 text-yellow-400" />, bg: "from-yellow-500/20 to-orange-500/20", border: "border-yellow-500/20", title: "Hackathons & Competitions", desc: "Win ₹10L+ in prizes. Build real products in 48 hours. Get noticed by top companies.", link: "/events?category=Hackathon" },
-              { icon: <BookOpen className="w-6 h-6 text-purple-400" />, bg: "from-purple-500/20 to-pink-500/20", border: "border-purple-500/20", title: "Workshops & Learning", desc: "Free workshops, bootcamps, and live sessions on React, AI, DSA, Web3, and more.", link: "/events?category=Workshop" },
+              { icon: <Zap className="w-6 h-6 text-fuchsia-400" />, bg: "from-fuchsia-500/20 to-purple-500/20", border: "border-fuchsia-500/20", title: "Hackathons & Competitions", desc: "Win ₹10L+ in prizes. Build real products in 48 hours. Get noticed by top companies.", link: "/events?category=Hackathon" },
+              { icon: <BookOpen className="w-6 h-6 text-purple-400" />, bg: "from-purple-500/20 to-cyan-500/20", border: "border-purple-500/20", title: "Workshops & Learning", desc: "Free workshops, bootcamps, and live sessions on React, AI, DSA, Web3, and more.", link: "/events?category=Workshop" },
               { icon: <Heart className="w-6 h-6 text-cyan-400" />, bg: "from-cyan-500/20 to-blue-500/20", border: "border-cyan-500/20", title: "Community & Network", desc: "8,500+ peers, industry mentors, alumni at top companies. Your next co-founder is here.", link: "/community" },
             ].map((item, i) => (
               <motion.div
                 key={item.title}
-                className="glass-card p-7 flex flex-col"
+                className="glass-card p-8 flex flex-col group hover:border-purple-500/40 hover:shadow-[0_0_40px_-10px_rgba(168,85,247,0.25)] transition-all duration-300"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.15 }}
-                whileHover={{ y: -4 }}
+                whileHover={{ y: -6 }}
               >
                 <div className={cn("w-14 h-14 rounded-2xl bg-gradient-to-br flex items-center justify-center mb-5 border", item.bg, item.border)}>
                   {item.icon}
@@ -321,9 +326,12 @@ export default function HomePage() {
           <motion.div className="flex items-end justify-between mb-12" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
             <div>
               <motion.p variants={fadeUp} className="badge inline-flex mb-3">Events</motion.p>
-              <motion.h2 variants={fadeUp} className="font-display font-bold text-4xl sm:text-5xl text-[var(--text-primary)]">
+              <motion.h2 variants={fadeUp} className="font-display font-bold text-4xl sm:text-5xl text-[var(--text-primary)] mb-4">
                 Featured <span className="text-gradient">Events</span>
               </motion.h2>
+              <motion.p variants={fadeUp} className="text-[var(--text-body)] max-w-xl text-base sm:text-lg">
+                Join thousands of students at our upcoming hackathons, workshops, and meetups across India.
+              </motion.p>
             </div>
             <motion.div variants={fadeUp}>
               <Link href="/events" className="btn-secondary text-sm hidden sm:flex">
@@ -333,7 +341,7 @@ export default function HomePage() {
           </motion.div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredEvents.map((event, i) => (
-              <motion.div key={event.id} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
+              <motion.div key={event._id} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
                 <EventCard event={event} />
               </motion.div>
             ))}

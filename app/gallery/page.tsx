@@ -2,8 +2,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { gallery } from "@/data/mock";
-import type { GalleryItem } from "@/types";
 import { X, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
@@ -12,6 +10,14 @@ import { cn } from "@/lib/utils";
 export default function GalleryPage() {
   const [activeEvent, setActiveEvent] = useState("All");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [gallery, setGallery] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch("/api/gallery")
+      .then(res => res.json())
+      .then(data => { if (Array.isArray(data)) setGallery(data); })
+      .catch(console.error);
+  }, []);
 
   const events = ["All", ...Array.from(new Set(gallery.map(g => g.event)))];
   const filtered = activeEvent === "All" ? gallery : gallery.filter(g => g.event === activeEvent);
@@ -57,18 +63,18 @@ export default function GalleryPage() {
         ))}
       </Container>
 
-      {/* Masonry grid */}
+      {/* Uniform grid */}
       <Container className="pb-24">
-        <div className="masonry-grid">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((item, i) => (
-            <motion.div key={item.id} className="masonry-item cursor-pointer group relative overflow-hidden rounded-2xl"
+            <motion.div key={item._id} className="cursor-pointer group relative overflow-hidden rounded-2xl aspect-video"
               initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}
               onClick={() => openLightbox(i)}>
-              <Image src={item.thumbnail} alt={item.caption} width={600} height={400} className="w-full rounded-2xl object-cover group-hover:scale-105 transition-transform duration-500" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl flex flex-col justify-end p-4">
+              <Image src={item.thumbnail} alt={item.caption} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
                 {item.type === "video" && <Play className="w-10 h-10 text-white mx-auto mb-3" />}
-                <p className="text-white text-sm font-medium line-clamp-1">{item.caption}</p>
-                <span className="badge text-xs self-start mt-1">{item.event.split(" ").slice(0, 3).join(" ")}</span>
+                <p className="text-white text-base font-semibold line-clamp-1">{item.caption}</p>
+                <span className="badge text-xs self-start mt-2 border-white/20 bg-white/10 text-white">{item.event.split(" ").slice(0, 3).join(" ")}</span>
               </div>
             </motion.div>
           ))}

@@ -1,9 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { sponsors } from "@/data/mock";
 import { ExternalLink, ArrowRight, Users, Calendar, Trophy, CheckCircle } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
@@ -12,10 +11,19 @@ import { cn } from "@/lib/utils";
 const benefits = ["Reach 8,500+ highly engaged student developers", "Brand exposure across 200+ college chapters", "Direct access to top campus talent pipeline", "Speaking opportunities at national events", "Logo placement on all event materials", "Social media features to 1L+ followers"];
 
 export default function SponsorsPage() {
-  const titleSponsors = sponsors.filter(s => s.tier === "Title");
-  const goldSponsors = sponsors.filter(s => s.tier === "Gold");
-  const silverSponsors = sponsors.filter(s => s.tier === "Silver");
-  const communitySponsors = sponsors.filter(s => s.tier === "Community");
+  const [sponsors, setSponsors] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch("/api/sponsors")
+      .then(res => res.json())
+      .then(data => { if (Array.isArray(data)) setSponsors(data); })
+      .catch(console.error);
+  }, []);
+
+  const titleSponsors = sponsors.filter(s => s.tier === "platinum"); // Using platinum for Title
+  const goldSponsors = sponsors.filter(s => s.tier === "gold");
+  const silverSponsors = sponsors.filter(s => s.tier === "silver");
+  const communitySponsors = sponsors.filter(s => s.tier === "community");
 
   return (
     <div className="min-h-screen bg-[#050507] pt-24">
@@ -50,14 +58,13 @@ export default function SponsorsPage() {
             </h2>
             <div className="grid gap-6">
               {titleSponsors.map((s, i) => (
-                <motion.div key={s.id} className="glass-card p-8 flex items-center gap-8" initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+                <motion.div key={s._id} className="glass-card p-8 flex items-center gap-8" initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
                   style={{ border: "1px solid rgba(234,179,8,0.3)" }}>
                   <Image src={s.logo} alt={s.name} width={80} height={80} className="rounded-2xl flex-shrink-0" />
                   <div className="flex-1">
                     <h3 className="font-display font-bold text-2xl text-[var(--text-primary)] mb-1">{s.name}</h3>
-                    <p className="text-[var(--text-body)]">{s.description}</p>
                   </div>
-                  <a href={s.website} target="_blank" rel="noopener noreferrer" className="btn-secondary text-sm flex-shrink-0">
+                  <a href={s.url || "#"} target="_blank" rel="noopener noreferrer" className="btn-secondary text-sm flex-shrink-0">
                     Visit <ExternalLink className="w-3.5 h-3.5" />
                   </a>
                 </motion.div>
@@ -73,7 +80,7 @@ export default function SponsorsPage() {
           </h2>
           <div className="grid sm:grid-cols-2 gap-5">
             {goldSponsors.map((s, i) => (
-              <motion.a key={s.id} href={s.website} target="_blank" rel="noopener noreferrer" className="glass-card p-6 flex items-center gap-5 hover:no-underline group" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} whileHover={{ y: -4 }}>
+              <motion.a key={s._id} href={s.url || "#"} target="_blank" rel="noopener noreferrer" className="glass-card p-6 flex items-center gap-5 hover:no-underline group" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} whileHover={{ y: -4 }}>
                 <Image src={s.logo} alt={s.name} width={60} height={60} className="rounded-xl flex-shrink-0" />
                 <div>
                   <h3 className="font-display font-bold text-lg text-[var(--text-primary)] group-hover:text-gradient">{s.name}</h3>
@@ -92,7 +99,7 @@ export default function SponsorsPage() {
           </h2>
           <div className="grid sm:grid-cols-3 gap-4">
             {silverSponsors.map((s, i) => (
-              <motion.a key={s.id} href={s.website} target="_blank" rel="noopener noreferrer" className="glass-card p-5 flex items-center gap-4 group hover:no-underline" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} whileHover={{ y: -3 }}>
+              <motion.a key={s._id} href={s.url || "#"} target="_blank" rel="noopener noreferrer" className="glass-card p-5 flex items-center gap-4 group hover:no-underline" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} whileHover={{ y: -3 }}>
                 <Image src={s.logo} alt={s.name} width={48} height={48} className="rounded-xl flex-shrink-0" />
                 <span className="font-semibold text-sm text-[var(--text-primary)] group-hover:text-purple-400 transition-colors">{s.name}</span>
               </motion.a>
@@ -107,7 +114,7 @@ export default function SponsorsPage() {
           </h2>
           <div className="flex flex-wrap gap-4">
             {communitySponsors.map((s, i) => (
-              <motion.a key={s.id} href={s.website} target="_blank" rel="noopener noreferrer" className="glass-card flex items-center gap-3 px-5 py-3 rounded-full hover:no-underline group" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}>
+              <motion.a key={s._id} href={s.url || "#"} target="_blank" rel="noopener noreferrer" className="glass-card flex items-center gap-3 px-5 py-3 rounded-full hover:no-underline group" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}>
                 <Image src={s.logo} alt={s.name} width={28} height={28} className="rounded-full" />
                 <span className="text-sm font-medium text-[var(--text-body)] group-hover:text-[var(--text-primary)]">{s.name}</span>
               </motion.a>

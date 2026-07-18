@@ -3,7 +3,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Mail, MapPin, MessageSquare, Clock, Send, ChevronDown } from "lucide-react";
-import { GithubIcon, TwitterIcon, LinkedinIcon, YoutubeIcon, InstagramIcon } from "@/components/icons/SocialIcons";
+import { GithubIcon, TwitterIcon, LinkedinIcon, YoutubeIcon, InstagramIcon, WhatsappIcon, DiscordIcon } from "@/components/icons/SocialIcons";
 import toast from "react-hot-toast";
 import { SOCIAL_LINKS } from "@/lib/utils";
 import { Section } from "@/components/ui/Section";
@@ -19,10 +19,12 @@ const faqs = [
 ];
 
 const socials = [
-  { icon: MessageSquare, label: "Discord", handle: "discord.gg/hacknfinity", href: SOCIAL_LINKS.discord, color: "text-indigo-400", bg: "from-indigo-500/10 to-indigo-600/5" },
-  { icon: GithubIcon, label: "GitHub", handle: "@hacknfinity", href: SOCIAL_LINKS.github, color: "text-white", bg: "from-gray-500/10 to-gray-600/5" },
-  { icon: TwitterIcon, label: "Twitter / X", handle: "@hacknfinity", href: SOCIAL_LINKS.twitter, color: "text-sky-400", bg: "from-sky-500/10 to-sky-600/5" },
+  { icon: InstagramIcon, label: "Instagram", handle: "@hacknfinity", href: SOCIAL_LINKS.instagram, color: "text-pink-500", bg: "from-pink-500/10 to-pink-600/5" },
   { icon: LinkedinIcon, label: "LinkedIn", handle: "Hacknfinity", href: SOCIAL_LINKS.linkedin, color: "text-blue-400", bg: "from-blue-500/10 to-blue-600/5" },
+  { icon: WhatsappIcon, label: "WhatsApp", handle: "Message Us", href: SOCIAL_LINKS.whatsapp, color: "text-green-500", bg: "from-green-500/10 to-green-600/5" },
+  { icon: TwitterIcon, label: "Twitter / X", handle: "@hacknfinity", href: SOCIAL_LINKS.twitter, color: "text-white", bg: "from-gray-400/10 to-gray-500/5" },
+  { icon: DiscordIcon, label: "Discord", handle: "Join Server", href: SOCIAL_LINKS.discord, color: "text-indigo-400", bg: "from-indigo-500/10 to-indigo-600/5" },
+  { icon: GithubIcon, label: "GitHub", handle: "@hacknfinity", href: SOCIAL_LINKS.github, color: "text-white", bg: "from-gray-500/10 to-gray-600/5" },
   { icon: YoutubeIcon, label: "YouTube", handle: "@hacknfinity", href: SOCIAL_LINKS.youtube, color: "text-red-400", bg: "from-red-500/10 to-red-600/5" },
 ];
 
@@ -77,9 +79,9 @@ export default function ContactPage() {
 
           <motion.div className="space-y-4" initial={{opacity:0,x:30}} animate={{opacity:1,x:0}} transition={{delay:0.1}}>
             {[
-              {icon:<Mail className="w-6 h-6 text-purple-400"/>,title:"Email Us",value:"hello@hacknfinity.in",link:"mailto:hello@hacknfinity.in"},
+              {icon:<Mail className="w-6 h-6 text-purple-400"/>,title:"Email Us",value:"hacknfinity@gmail.com",link:"mailto:hacknfinity@gmail.com"},
               {icon:<MapPin className="w-6 h-6 text-cyan-400"/>,title:"Find Us",value:"New Delhi, India"},
-              {icon:<MessageSquare className="w-6 h-6 text-indigo-400"/>,title:"Join Our Discord",value:"discord.gg/hacknfinity",link:SOCIAL_LINKS.discord},
+              {icon:<MessageSquare className="w-6 h-6 text-indigo-400"/>,title:"Join Our Discord",value:"discord.com/invite/Bne9UJV5x",link:SOCIAL_LINKS.discord},
               {icon:<Clock className="w-6 h-6 text-green-400"/>,title:"Response Time",value:"Within 24 hours"},
             ].map((info)=>(
               <div key={info.title} className="glass-card p-5 flex items-center gap-4">

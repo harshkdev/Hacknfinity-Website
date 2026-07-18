@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,7 +7,6 @@ import { GraduationCap, ChevronRight } from "lucide-react";
 import { GithubIcon, TwitterIcon, LinkedinIcon } from "@/components/icons/SocialIcons";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
-import { members } from "@/data/mock";
 import type { Member } from "@/types";
 import { cn } from "@/lib/utils";
 
@@ -15,6 +14,14 @@ const teams = ["All", "Founders", "Developers", "Designers", "Event Coordinators
 
 export default function MembersPage() {
   const [activeTeam, setActiveTeam] = useState<string>("All");
+  const [members, setMembers] = useState<Member[]>([]);
+
+  useEffect(() => {
+    fetch("/api/members", { cache: "no-store" })
+      .then(res => res.json())
+      .then(data => { if (Array.isArray(data)) setMembers(data); })
+      .catch(console.error);
+  }, []);
 
   const filtered = activeTeam === "All" ? members : members.filter((m) => m.team === activeTeam);
 
@@ -57,8 +64,8 @@ export default function MembersPage() {
       <Container className="pb-24">
         <motion.div layout className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
           <AnimatePresence mode="popLayout">
-            {filtered.map((member) => (
-              <MemberCard key={member.id} member={member} />
+            {filtered.map((member: any) => (
+              <MemberCard key={member._id} member={member} />
             ))}
           </AnimatePresence>
         </motion.div>

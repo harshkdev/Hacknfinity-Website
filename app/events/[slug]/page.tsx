@@ -1,11 +1,10 @@
 "use client";
-import { use, useState } from "react";
+import { useEffect, useState, use } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, MapPin, Clock, Users, Check, Trophy, ChevronRight, Share2, X, Ticket, Download } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { events } from "@/data/mock";
 import { cn, formatDate } from "@/lib/utils";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -22,12 +21,33 @@ type FormData = z.infer<typeof schema>;
 
 export default function EventDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
-  const event = events.find(e => e.slug === slug);
+  const [event, setEvent] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/events", { cache: "no-store" })
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          const decodedSlug = decodeURIComponent(slug);
+          const found = data.find((e: any) => e.slug === decodedSlug || e.slug === slug);
+          setEvent(found);
+        }
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, [slug]);
   const [showForm, setShowForm] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const ticketId = `HNF-${Math.random().toString(36).substring(2,8).toUpperCase()}`;
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>({ resolver: zodResolver(schema) });
+
+  if (loading) return (
+    <div className="min-h-screen flex items-center justify-center bg-[#050507]">
+      <div className="w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
+    </div>
+  );
 
   if (!event) return (
     <div className="min-h-screen flex items-center justify-center bg-[#050507] pt-20">
@@ -64,22 +84,24 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
           <div>
             <p className="text-[var(--text-body)] leading-relaxed text-base">{event.description}</p>
           </div>
-          <div>
-            <h2 className="font-display font-bold text-2xl text-[var(--text-primary)] mb-4">Event Highlights</h2>
-            <div className="grid sm:grid-cols-2 gap-3">
-              {event.highlights.map(h=>(
-                <div key={h} className="flex items-center gap-3 glass-card px-4 py-3">
-                  <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-500 to-cyan-500 flex items-center justify-center flex-shrink-0"><Check className="w-3.5 h-3.5 text-white"/></div>
-                  <span className="text-sm text-[var(--text-body)]">{h}</span>
-                </div>
-              ))}
+          {event.highlights && event.highlights.length > 0 && (
+            <div>
+              <h2 className="font-display font-bold text-2xl text-[var(--text-primary)] mb-4">Event Highlights</h2>
+              <div className="grid sm:grid-cols-2 gap-3">
+                {event.highlights.map((h: string)=>(
+                  <div key={h} className="flex items-center gap-3 glass-card px-4 py-3">
+                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-500 to-cyan-500 flex items-center justify-center flex-shrink-0"><Check className="w-3.5 h-3.5 text-white"/></div>
+                    <span className="text-sm text-[var(--text-body)]">{h}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
           {event.speakers && event.speakers.length > 0 && (
             <div>
               <h2 className="font-display font-bold text-2xl text-[var(--text-primary)] mb-5">Speakers</h2>
               <div className="grid sm:grid-cols-2 gap-4">
-                {event.speakers.map(s=>(
+                {event.speakers.map((s: any)=>(
                   <div key={s.name} className="glass-card p-5 flex items-center gap-4">
                     <Image src={s.avatar} alt={s.name} width={56} height={56} className="rounded-full ring-2 ring-purple-500/30"/>
                     <div><div className="font-semibold text-[var(--text-primary)]">{s.name}</div><div className="text-sm text-purple-400">{s.role}</div><div className="text-xs text-[var(--text-muted)]">{s.company}</div></div>
@@ -92,7 +114,7 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
             <div>
               <h2 className="font-display font-bold text-2xl text-[var(--text-primary)] mb-5 flex items-center gap-2"><Trophy className="w-6 h-6 text-yellow-400"/>Prizes</h2>
               <div className="grid sm:grid-cols-3 gap-4">
-                {event.prizes.map((p,i)=>(
+                {event.prizes.map((p: any,i: number)=>(
                   <div key={p.position} className="glass-card p-5 text-center" style={{border:`1px solid ${i===0?"rgba(234,179,8,0.4)":i===1?"rgba(156,163,175,0.4)":"rgba(180,120,75,0.4)"}`}}>
                     <div className="font-display font-bold text-2xl text-[var(--text-primary)] mb-1">{p.position}</div>
                     <div className="text-gradient font-bold text-xl mb-1">{p.amount}</div>
@@ -102,16 +124,18 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
               </div>
             </div>
           )}
-          <div className="flex flex-wrap gap-2">
-            {event.tags.map(t=><span key={t} className="badge">{t}</span>)}
-          </div>
+          {event.tags && event.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {event.tags.map((t: string)=><span key={t} className="badge">{t}</span>)}
+            </div>
+          )}
         </div>
 
         {/* Right sidebar */}
         <div className="space-y-5">
           <div className="glass-card p-6 sticky top-24">
             <div className="space-y-3 mb-5 text-sm text-[var(--text-body)]">
-              {[{icon:<Calendar className="w-4 h-4 text-purple-400"/>,label:formatDate(event.date)},{icon:<MapPin className="w-4 h-4 text-cyan-400"/>,label:event.location},{icon:<Clock className="w-4 h-4 text-purple-400"/>,label:event.duration},{icon:<Users className="w-4 h-4 text-cyan-400"/>,label:`${event.attendees||0} registered`}].map((item,i)=>(
+              {[{icon:<Calendar className="w-4 h-4 text-purple-400"/>,label:formatDate(event.date)},{icon:<MapPin className="w-4 h-4 text-cyan-400"/>,label:event.location},{icon:<Clock className="w-4 h-4 text-purple-400"/>,label:event.duration || "TBA"},{icon:<Users className="w-4 h-4 text-cyan-400"/>,label:`${event.attendees||0} registered`}].map((item,i)=>(
                 <div key={i} className="flex items-center gap-2.5">{item.icon}<span>{item.label}</span></div>
               ))}
             </div>

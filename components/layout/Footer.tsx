@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { MessageSquare, Mail, MapPin, Phone } from "lucide-react";
-import { GithubIcon, TwitterIcon, LinkedinIcon, YoutubeIcon, DiscordIcon } from "@/components/icons/SocialIcons";
+import { GithubIcon, TwitterIcon, LinkedinIcon, YoutubeIcon, DiscordIcon, InstagramIcon, WhatsappIcon } from "@/components/icons/SocialIcons";
 import { SOCIAL_LINKS } from "@/lib/utils";
 
 const footerLinks = {
@@ -33,10 +33,12 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { icon: MessageSquare, href: SOCIAL_LINKS.discord, label: "Discord", color: "hover:text-indigo-400" },
-  { icon: GithubIcon, href: SOCIAL_LINKS.github, label: "GitHub", color: "hover:text-white" },
-  { icon: TwitterIcon, href: SOCIAL_LINKS.twitter, label: "Twitter / X", color: "hover:text-sky-400" },
+  { icon: InstagramIcon, href: SOCIAL_LINKS.instagram, label: "Instagram", color: "hover:text-pink-500" },
   { icon: LinkedinIcon, href: SOCIAL_LINKS.linkedin, label: "LinkedIn", color: "hover:text-blue-400" },
+  { icon: WhatsappIcon, href: SOCIAL_LINKS.whatsapp, label: "WhatsApp", color: "hover:text-green-500" },
+  { icon: TwitterIcon, href: SOCIAL_LINKS.twitter, label: "Twitter / X", color: "hover:text-white" },
+  { icon: DiscordIcon, href: SOCIAL_LINKS.discord, label: "Discord", color: "hover:text-indigo-400" },
+  { icon: GithubIcon, href: SOCIAL_LINKS.github, label: "GitHub", color: "hover:text-white" },
   { icon: YoutubeIcon, href: SOCIAL_LINKS.youtube, label: "YouTube", color: "hover:text-red-400" },
 ];
 
@@ -78,8 +80,8 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-3 mb-4 group">
-              <div className="relative h-8 w-auto">
-                <Image src="/logo.png" alt="Hacknfinity Logo" width={60} height={60} className="w-auto h-full drop-shadow-md group-hover:drop-shadow-[0_0_8px_rgba(168,85,247,0.8)] transition-all duration-300" />
+              <div className="relative h-12 w-auto">
+                <Image src="/logo.png" alt="Hacknfinity Logo" width={100} height={100} className="w-auto h-full drop-shadow-md group-hover:drop-shadow-[0_0_8px_rgba(168,85,247,0.8)] transition-all duration-300" />
               </div>
               <span className="font-display font-bold text-lg tracking-widest text-gradient">
                 HACKNFINITY
@@ -94,8 +96,8 @@ export default function Footer() {
             <div className="space-y-2 text-sm text-[var(--text-muted)]">
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-purple-400 flex-shrink-0" />
-                <a href="mailto:hello@hacknfinity.in" className="hover:text-purple-400 transition-colors">
-                  hello@hacknfinity.in
+                <a href="mailto:hacknfinity@gmail.com" className="hover:text-purple-400 transition-colors">
+                  hacknfinity@gmail.com
                 </a>
               </div>
               <div className="flex items-center gap-2">

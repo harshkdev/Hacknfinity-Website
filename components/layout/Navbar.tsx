@@ -4,27 +4,26 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, Sun, Moon, ChevronDown } from "lucide-react";
-import { useTheme } from "@/components/providers/ThemeProvider";
+import { Menu, X, ChevronDown } from "lucide-react";
+import { useAuth, UserButton } from "@clerk/nextjs";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  {
-    label: "Community",
-    href: "#",
-    children: [
-      { label: "Core Members", href: "/members" },
-      { label: "Community Forum", href: "/community" },
-    ],
-  },
   {
     label: "Events",
     href: "/events",
     children: [
       { label: "All Events", href: "/events" },
       { label: "Gallery", href: "/gallery" },
+    ],
+  },
+  {
+    label: "Community",
+    href: "#",
+    children: [
+      { label: "Core Members", href: "/members" },
+      { label: "Community Forum", href: "/community" },
     ],
   },
   {
@@ -39,14 +38,15 @@ const navLinks = [
   },
   { label: "Sponsors", href: "/sponsors" },
   { label: "Contact", href: "/contact" },
+  { label: "About", href: "/about" },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
+  const { isSignedIn } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -67,22 +67,22 @@ export default function Navbar() {
       )}
       style={{ top: "var(--banner-height, 0px)" }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex lg:grid lg:grid-cols-[1fr_auto_1fr] items-center justify-between h-16">
+      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 relative">
+        <div className="flex items-center justify-between gap-4 xl:gap-12 h-16">
           {/* Logo */}
-          <div className="flex items-center justify-start">
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative h-8 w-auto flex-shrink-0 flex items-center justify-center">
-                <Image src="/logo.png" alt="Hacknfinity Logo" width={60} height={60} className="w-auto h-full drop-shadow-md group-hover:drop-shadow-[0_0_8px_rgba(168,85,247,0.8)] transition-all duration-300" priority />
+          <div className="flex items-center z-10 shrink-0">
+            <Link href="/" className="flex items-center gap-2 xl:gap-3 group">
+              <div className="relative h-12 w-auto flex-shrink-0 flex items-center justify-center">
+                <Image src="/logo.png" alt="Hacknfinity Logo" width={100} height={100} className="w-auto h-full drop-shadow-md group-hover:drop-shadow-[0_0_8px_rgba(168,85,247,0.8)] transition-all duration-300" priority />
               </div>
-              <span className="font-display font-bold text-lg tracking-widest text-gradient hidden sm:block">
+              <span className="font-display font-bold text-base xl:text-lg tracking-widest text-gradient hidden sm:block">
                 HACKNFINITY
               </span>
             </Link>
           </div>
 
-          {/* Desktop Nav - Perfectly Centered */}
-          <div className="hidden lg:flex items-center justify-center gap-4 xl:gap-8">
+          {/* Desktop Nav */}
+          <div className="hidden lg:flex items-center justify-center flex-1 whitespace-nowrap">
             {navLinks.map((link) =>
               link.children ? (
                 <div
@@ -91,11 +91,11 @@ export default function Navbar() {
                   onMouseEnter={() => setActiveDropdown(link.label)}
                   onMouseLeave={() => setActiveDropdown(null)}
                 >
-                  <button className="flex items-center gap-1.5 px-3 py-2 text-[15px] font-medium text-[var(--text-body)] hover:text-white transition-colors active:transform-none group/btn">
+                  <button className="flex items-center gap-1 px-1.5 xl:px-3 py-2 text-[14px] xl:text-[15px] font-medium text-[var(--text-body)] hover:text-white transition-colors active:transform-none group/btn">
                     {link.label}
                     <ChevronDown
                       className={cn(
-                        "w-4 h-4 transition-transform duration-200 opacity-70 group-hover/btn:opacity-100",
+                        "w-3 h-3 xl:w-4 xl:h-4 transition-transform duration-200 opacity-70 group-hover/btn:opacity-100",
                         activeDropdown === link.label && "rotate-180 opacity-100 text-purple-400"
                       )}
                     />
@@ -131,7 +131,7 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "relative px-3 py-2 text-[15px] font-medium transition-colors",
+                    "relative px-1.5 xl:px-3 py-2 text-[14px] xl:text-[15px] font-medium transition-colors",
                     pathname === link.href
                       ? "text-white"
                       : "text-[var(--text-body)] hover:text-white"
@@ -147,21 +147,26 @@ export default function Navbar() {
           </div>
 
           {/* Actions */}
-          <div className="flex items-center justify-end gap-4">
-            <button
-              onClick={toggleTheme}
-              className="hidden sm:flex p-2 rounded-full hover:bg-white/10 transition-colors text-[var(--text-muted)] hover:text-[var(--text-primary)]"
-              aria-label="Toggle theme"
-            >
-              {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </button>
-            <div className="hidden sm:flex items-center gap-3 border-l border-white/10 pl-4">
-              <Link href="/login" className="text-[15px] font-medium text-[var(--text-body)] hover:text-[var(--text-primary)] transition-colors px-4 py-2">
-                Log In
-              </Link>
-              <Link href="/signup" className="btn-primary text-[15px] px-6 py-2.5">
-                Join Free
-              </Link>
+          <div className="flex items-center justify-end gap-3 shrink-0">
+            <div className="hidden sm:flex items-center gap-2 xl:gap-3">
+              {!isSignedIn ? (
+                <>
+                  <Link href="/sign-in" className="text-[14px] xl:text-[15px] whitespace-nowrap font-medium text-[var(--text-body)] hover:text-[var(--text-primary)] transition-colors px-2 xl:px-4 py-2">
+                    Log In
+                  </Link>
+                  <Link href="/sign-up" className="btn-primary text-[14px] xl:text-[15px] whitespace-nowrap px-4 xl:px-6 py-2 xl:py-2.5">
+                    Join Free
+                  </Link>
+                </>
+              ) : (
+                <UserButton 
+                  appearance={{
+                    elements: {
+                      userButtonAvatarBox: "w-10 h-10 border-2 border-purple-500/30 hover:border-purple-400 hover:shadow-[0_0_12px_rgba(168,85,247,0.6)] transition-all"
+                    }
+                  }}
+                />
+              )}
             </div>
             
 
@@ -230,12 +235,26 @@ export default function Navbar() {
             ))}
 
             <div className="pt-3 flex flex-col gap-2 border-t border-[var(--border-subtle)]">
-              <Link href="/sign-in" className="btn-secondary text-sm text-center">
-                Log In
-              </Link>
-              <Link href="/sign-up" className="btn-primary text-sm text-center">
-                Join Free
-              </Link>
+              {!isSignedIn ? (
+                <>
+                  <Link href="/sign-in" className="btn-secondary text-sm text-center">
+                    Log In
+                  </Link>
+                  <Link href="/sign-up" className="btn-primary text-sm text-center">
+                    Join Free
+                  </Link>
+                </>
+              ) : (
+                <div className="flex justify-center py-2">
+                  <UserButton 
+                    appearance={{
+                      elements: {
+                        userButtonAvatarBox: "w-10 h-10 border-2 border-purple-500/30 hover:border-purple-400 hover:shadow-[0_0_12px_rgba(168,85,247,0.6)] transition-all"
+                      }
+                    }}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>

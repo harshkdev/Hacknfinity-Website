@@ -4,10 +4,10 @@ import type { Member, Event, Blog, Sponsor, GalleryItem, Resource, Certificate, 
 // STATS
 // ============================================================
 export const stats: Stat[] = [
-  { label: "Community Members", value: "8,500+", numericValue: 8500, suffix: "+", icon: "Users", description: "Students from 200+ colleges across India" },
-  { label: "Events Organized", value: "52+", numericValue: 52, suffix: "+", icon: "Calendar", description: "Hackathons, workshops & webinars" },
-  { label: "College Chapters", value: "210+", numericValue: 210, suffix: "+", icon: "Building", description: "Active chapters across 18 states" },
-  { label: "Community Reach", value: "1.2L+", numericValue: 120000, suffix: "+", icon: "Globe", description: "Impressions & social reach" },
+  { label: "Community Members", value: "10K+", numericValue: 10, suffix: "K+", icon: "Users", description: "Students from 200+ colleges across India" },
+  { label: "Collaborations", value: "100+", numericValue: 100, suffix: "+", icon: "Building", description: "Partnerships and industry sponsors" },
+  { label: "Events", value: "50+", numericValue: 50, suffix: "+", icon: "Calendar", description: "Hackathons, workshops & webinars" },
+  { label: "Reach", value: "500K+", numericValue: 500, suffix: "K+", icon: "Globe", description: "Impressions & social reach" },
 ];
 
 // ============================================================
@@ -397,30 +397,26 @@ export const blogs: Blog[] = [
 // SPONSORS
 // ============================================================
 export const sponsors: Sponsor[] = [
-  { id: "1", name: "TechCorp India", logo: "https://api.dicebear.com/7.x/initials/svg?seed=TC&backgroundColor=a855f7&textColor=ffffff&fontSize=40", website: "https://example.com", tier: "Title", description: "India's leading tech conglomerate" },
-  { id: "2", name: "StartupHub", logo: "https://api.dicebear.com/7.x/initials/svg?seed=SH&backgroundColor=22d3ee&textColor=ffffff&fontSize=40", website: "https://example.com", tier: "Gold" },
-  { id: "3", name: "DevCloud", logo: "https://api.dicebear.com/7.x/initials/svg?seed=DC&backgroundColor=d946ef&textColor=ffffff&fontSize=40", website: "https://example.com", tier: "Gold" },
-  { id: "4", name: "CodePath", logo: "https://api.dicebear.com/7.x/initials/svg?seed=CP&backgroundColor=3b82f6&textColor=ffffff&fontSize=40", website: "https://example.com", tier: "Silver" },
-  { id: "5", name: "ByteWorks", logo: "https://api.dicebear.com/7.x/initials/svg?seed=BW&backgroundColor=a855f7&textColor=ffffff&fontSize=40", website: "https://example.com", tier: "Silver" },
-  { id: "6", name: "InnovateTech", logo: "https://api.dicebear.com/7.x/initials/svg?seed=IT&backgroundColor=22d3ee&textColor=ffffff&fontSize=40", website: "https://example.com", tier: "Silver" },
-  { id: "7", name: "OpenDev", logo: "https://api.dicebear.com/7.x/initials/svg?seed=OD&backgroundColor=d946ef&textColor=ffffff&fontSize=40", website: "https://example.com", tier: "Community" },
-  { id: "8", name: "HackerEarth", logo: "https://api.dicebear.com/7.x/initials/svg?seed=HE&backgroundColor=3b82f6&textColor=ffffff&fontSize=40", website: "https://example.com", tier: "Community" },
-  { id: "9", name: "GeeksHub", logo: "https://api.dicebear.com/7.x/initials/svg?seed=GH&backgroundColor=a855f7&textColor=ffffff&fontSize=40", website: "https://example.com", tier: "Community" },
+  { id: "1", name: "Google for Startups", logo: "https://api.dicebear.com/7.x/initials/svg?seed=GS&backgroundColor=3b82f6&textColor=ffffff&fontSize=40", website: "https://google.com", tier: "Title" },
+  { id: "2", name: "Microsoft for Students", logo: "https://api.dicebear.com/7.x/initials/svg?seed=MS&backgroundColor=a855f7&textColor=ffffff&fontSize=40", website: "https://microsoft.com", tier: "Title" },
+  { id: "3", name: "Vercel", logo: "https://api.dicebear.com/7.x/initials/svg?seed=VE&backgroundColor=000000&textColor=ffffff&fontSize=40", website: "https://vercel.com", tier: "Gold" },
+  { id: "4", name: "GitHub Education", logo: "https://api.dicebear.com/7.x/initials/svg?seed=GH&backgroundColor=22d3ee&textColor=ffffff&fontSize=40", website: "https://github.com", tier: "Gold" },
+  { id: "5", name: "AWS Educate", logo: "https://api.dicebear.com/7.x/initials/svg?seed=AW&backgroundColor=d946ef&textColor=ffffff&fontSize=40", website: "https://aws.amazon.com", tier: "Silver" },
+  { id: "6", name: "Notion", logo: "https://api.dicebear.com/7.x/initials/svg?seed=NO&backgroundColor=a855f7&textColor=ffffff&fontSize=40", website: "https://notion.so", tier: "Silver" },
+  { id: "7", name: "Figma", logo: "https://api.dicebear.com/7.x/initials/svg?seed=FI&backgroundColor=3b82f6&textColor=ffffff&fontSize=40", website: "https://figma.com", tier: "Community" },
+  { id: "8", name: "Postman", logo: "https://api.dicebear.com/7.x/initials/svg?seed=PO&backgroundColor=22d3ee&textColor=ffffff&fontSize=40", website: "https://postman.com", tier: "Community" },
 ];
 
 // ============================================================
 // GALLERY
 // ============================================================
 export const gallery: GalleryItem[] = [
-  { id: "1", url: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1200&q=80", thumbnail: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&q=70", caption: "Teams hacking away at midnight", event: "Hacknfinity Hackathon 2024", type: "image", date: "2024-11-15" },
-  { id: "2", url: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&q=80", thumbnail: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=70", caption: "Opening ceremony at IIT Delhi", event: "Hacknfinity Hackathon 2024", type: "image", date: "2024-11-14" },
-  { id: "3", url: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1200&q=80", thumbnail: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&q=70", caption: "Workshop session on React", event: "React Masterclass 2024", type: "image", date: "2024-10-20" },
-  { id: "4", url: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=1200&q=80", thumbnail: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=600&q=70", caption: "Team brainstorming", event: "Hacknfinity Hackathon 2024", type: "image", date: "2024-11-15" },
-  { id: "5", url: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&q=80", thumbnail: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&q=70", caption: "Networking session", event: "Open Source Summit 2024", type: "image", date: "2024-09-10" },
-  { id: "6", url: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1200&q=80", thumbnail: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&q=70", caption: "Prize distribution ceremony", event: "Hacknfinity Hackathon 2024", type: "image", date: "2024-11-17" },
-  { id: "7", url: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=80", thumbnail: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=70", caption: "Open source sprint session", event: "Open Source Summit 2024", type: "image", date: "2024-09-11" },
-  { id: "8", url: "https://images.unsplash.com/photo-1551818255-e6e10975bc17?w=1200&q=80", thumbnail: "https://images.unsplash.com/photo-1551818255-e6e10975bc17?w=600&q=70", caption: "AI workshop demo", event: "AI/ML Bootcamp 2024", type: "image", date: "2024-07-20" },
-  { id: "9", url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80", thumbnail: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=70", caption: "Core team planning session", event: "Internal", type: "image", date: "2024-08-05" },
+  { id: "1", url: "/gallery/IMG-20260715-WA0065~2.jpg", thumbnail: "/gallery/IMG-20260715-WA0065~2.jpg", caption: "Hacknfinity Event Photo", event: "Hacknfinity Hackathon 2024", type: "image", date: "2024-11-15" },
+  { id: "2", url: "/gallery/IMG-20260716-WA0002.jpg", thumbnail: "/gallery/IMG-20260716-WA0002.jpg", caption: "Community Meetup", event: "React Masterclass 2024", type: "image", date: "2024-10-20" },
+  { id: "3", url: "/gallery/whatsapp-image.jpeg", thumbnail: "/gallery/whatsapp-image.jpeg", caption: "Team Session", event: "Internal", type: "image", date: "2024-08-05" },
+  { id: "4", url: "/gallery/img-2.png", thumbnail: "/gallery/img-2.png", caption: "Workshop Snapshot", event: "AI/ML Bootcamp 2024", type: "image", date: "2024-07-20" },
+  { id: "5", url: "/gallery/img-7.png", thumbnail: "/gallery/img-7.png", caption: "Open Source Summit", event: "Open Source Summit 2024", type: "image", date: "2024-09-10" },
+  { id: "6", url: "/gallery/Screenshot_20260715-202541.WhatsApp~2.png", thumbnail: "/gallery/Screenshot_20260715-202541.WhatsApp~2.png", caption: "Hackathon Highlight", event: "Hacknfinity Hackathon 2024", type: "image", date: "2024-11-16" },
 ];
 
 // ============================================================
@@ -471,9 +467,9 @@ export const forumThreads: ForumThread[] = [
 // TESTIMONIALS
 // ============================================================
 export const testimonials: Testimonial[] = [
-  { id: "1", name: "Tanvi Gupta", role: "SDE-1 @ Amazon", college: "NIT Warangal", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=tanvi", content: "Hacknfinity's DSA bootcamp completely transformed my interview preparation. The mock sessions and expert mentors helped me crack Amazon in just 3 months. Best community for serious developers!", rating: 5, event: "DSA Crash Course 2024" },
-  { id: "2", name: "Nikhil Reddy", role: "ML Engineer @ Microsoft", college: "IIIT Hyderabad", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=nikhil", content: "The Hacknfinity Hackathon was a game-changer. Our team built an AI model for early disease detection and won ₹1.5L. More importantly, we got connected with mentors who changed our career trajectory.", rating: 5, event: "Hacknfinity Hackathon 2024" },
-  { id: "3", name: "Shreya Mishra", role: "Frontend Dev @ Zomato", college: "DTU Delhi", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=shreya", content: "Sneha's React Masterclass was brilliant — zero to production in 8 hours. I've attended paid courses that didn't come close to this quality. And the community support after the event is phenomenal.", rating: 5, event: "React Masterclass 2024" },
+  { id: "1", name: "Priya Sharma", role: "CS Student", college: "IIT Delhi", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=priya", content: "Hacknfinity gave me my first real team, my first shipped product, and my first internship offer.", rating: 5, event: "Hacknfinity Hackathon 2024" },
+  { id: "2", name: "Arjun Mehta", role: "ECE Student", college: "VIT Vellore", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=arjun", content: "I went from zero coding experience to winning my first hackathon in 4 months.", rating: 5, event: "React Masterclass 2024" },
+  { id: "3", name: "Sneha Reddy", role: "Software Engineer", college: "Google", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=sneha", content: "As a mentor, I have seen students grow faster here than anywhere else.", rating: 5, event: "Hacknfinity Hackathon 2024" },
   { id: "4", name: "Rohan Kulkarni", role: "Full Stack Dev @ Freshworks", college: "COEP Pune", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=rohan", content: "From a complete beginner to a working developer in 6 months — that's my Hacknfinity story. The resource hub, community forum, and network of alumni are invaluable.", rating: 5 },
   { id: "5", name: "Aditi Jain", role: "Product Manager @ Paytm", college: "IIM Bangalore", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=aditi", content: "What sets Hacknfinity apart is the quality of the community. Everyone is helpful, motivated, and genuinely interested in growing together. I met my co-founder at one of their events!", rating: 5 },
 ];

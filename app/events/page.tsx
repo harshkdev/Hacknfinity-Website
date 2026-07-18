@@ -1,13 +1,11 @@
 "use client";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, MapPin, Clock, Users, Search, ArrowRight } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
-import { events } from "@/data/mock";
-import type { Event } from "@/types";
 import { cn, formatDate } from "@/lib/utils";
 
 const statusTabs = ["All", "Upcoming", "Ongoing", "Past"] as const;
@@ -17,13 +15,21 @@ export default function EventsPage() {
   const [status, setStatus] = useState("All");
   const [category, setCategory] = useState("All");
   const [search, setSearch] = useState("");
+  const [events, setEvents] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch("/api/events", { cache: "no-store" })
+      .then(res => res.json())
+      .then(data => { if (Array.isArray(data)) setEvents(data); })
+      .catch(console.error);
+  }, []);
 
   const filtered = useMemo(() => events.filter((e) => {
     const matchStatus = status === "All" || e.status === status.toLowerCase();
     const matchCat = category === "All" || e.category === category;
     const matchSearch = !search || e.title.toLowerCase().includes(search.toLowerCase()) || e.description.toLowerCase().includes(search.toLowerCase());
     return matchStatus && matchCat && matchSearch;
-  }), [status, category, search]);
+  }), [status, category, search, events]);
 
   return (
     <div className="min-h-screen bg-[#050507] pt-24">
@@ -93,7 +99,7 @@ export default function EventsPage() {
   );
 }
 
-function EventCard({ event }: { event: Event }) {
+function EventCard({ event }: { event: any }) {
   const statusColor = event.status === "upcoming" ? "bg-green-500/20 text-green-400 border-green-500/30"
     : event.status === "ongoing" ? "bg-amber-500/20 text-amber-400 border-amber-500/30"
     : "bg-gray-500/20 text-gray-400 border-gray-500/30";
@@ -113,13 +119,10 @@ function EventCard({ event }: { event: Event }) {
         <div className="grid grid-cols-2 gap-1.5 mb-4 text-sm text-[var(--text-body)]">
           <div className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5 text-purple-400 flex-shrink-0" /><span className="truncate">{formatDate(event.date)}</span></div>
           <div className="flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0" /><span className="truncate">{event.location}</span></div>
-          <div className="flex items-center gap-1.5 col-span-2"><Clock className="w-3.5 h-3.5 text-purple-400 flex-shrink-0" />{event.duration}</div>
+          <div className="flex items-center gap-1.5 col-span-2"><Clock className="w-3.5 h-3.5 text-purple-400 flex-shrink-0" />{event.duration || "TBA"}</div>
         </div>
         <p className="text-sm text-[var(--text-body)] line-clamp-2 mb-4 flex-1">{event.description}</p>
-        <div className="flex flex-wrap gap-1.5 mb-4">
-          {event.tags.slice(0, 3).map(t => <span key={t} className="text-xs px-2 py-0.5 rounded-full bg-white/5 text-[var(--text-muted)] border border-[var(--border-subtle)]">{t}</span>)}
-        </div>
-        <div className="flex items-center justify-between pt-3 border-t border-[var(--border-subtle)]">
+        <div className="flex items-center justify-between pt-3 mt-4 border-t border-[var(--border-subtle)]">
           <span className="flex items-center gap-1.5 text-sm text-[var(--text-muted)]"><Users className="w-4 h-4" />{event.attendees?.toLocaleString()}+ registered</span>
           <Link href={`/events/${event.slug}`} className="btn-primary text-xs px-4 py-2">View Details <ArrowRight className="w-3 h-3" /></Link>
         </div>

@@ -1,8 +1,7 @@
-"use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { forumThreads, members } from "@/data/mock";
+import { members } from "@/data/mock";
 import type { ForumThread } from "@/types";
 import { MessageSquare, ThumbsUp, Eye, Plus, Search, Pin, CheckCircle, X, Hash } from "lucide-react";
 import { cn, formatRelativeTime } from "@/lib/utils";
@@ -15,12 +14,19 @@ export default function CommunityPage() {
   const [cat, setCat] = useState("All");
   const [search, setSearch] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const [threads, setThreads] = useState(forumThreads);
+  const [threads, setThreads] = useState<any[]>([]);
   const [form, setForm] = useState({ title:"", category:"General", body:"", tags:"" });
+
+  useEffect(() => {
+    fetch("/api/community", { cache: "no-store" })
+      .then(res => res.json())
+      .then(data => { if (Array.isArray(data)) setThreads(data); })
+      .catch(console.error);
+  }, []);
 
   const filtered = threads.filter(t => (cat==="All"||t.category===cat) && (!search||t.title.toLowerCase().includes(search.toLowerCase())));
 
-  const submit = () => {
+  const submit = async () => {
     if (!form.title || !form.body) return;
     const newThread: ForumThread = {
       id: Date.now().toString(), title: form.title, body: form.body,
@@ -59,8 +65,8 @@ export default function CommunityPage() {
 
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-4">
-            {filtered.map((t,i)=>(
-              <motion.div key={t.id} className="glass-card p-5 cursor-pointer" initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{delay:i*0.05}} whileHover={{y:-2}}>
+            {filtered.map((t: any,i)=>(
+              <motion.div key={t._id} className="glass-card p-5 cursor-pointer" initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{delay:i*0.05}} whileHover={{y:-2}}>
                 <div className="flex flex-wrap gap-2 mb-2">
                   {t.isPinned&&<span className="flex items-center gap-1 text-xs text-yellow-400 bg-yellow-500/10 border border-yellow-500/20 px-2 py-0.5 rounded-full"><Pin className="w-3 h-3"/>Pinned</span>}
                   {t.isAnswered&&<span className="flex items-center gap-1 text-xs text-green-400 bg-green-500/10 border border-green-500/20 px-2 py-0.5 rounded-full"><CheckCircle className="w-3 h-3"/>Answered</span>}
@@ -69,7 +75,7 @@ export default function CommunityPage() {
                 <h3 className="font-display font-semibold text-base text-[var(--text-primary)] mb-1 hover:text-purple-400 transition-colors">{t.title}</h3>
                 <p className="text-sm text-[var(--text-body)] line-clamp-2 mb-3">{t.body}</p>
                 <div className="flex flex-wrap gap-1.5 mb-3">
-                  {t.tags.slice(0,3).map(tag=><span key={tag} className="text-xs px-2 py-0.5 rounded-full bg-white/5 text-[var(--text-muted)] border border-[var(--border-subtle)]">#{tag}</span>)}
+                  {t.tags?.slice(0,3).map((tag: string)=><span key={tag} className="text-xs px-2 py-0.5 rounded-full bg-white/5 text-[var(--text-muted)] border border-[var(--border-subtle)]">#{tag}</span>)}
                 </div>
                 <div className="flex items-center justify-between text-xs text-[var(--text-muted)]">
                   <div className="flex items-center gap-2">
