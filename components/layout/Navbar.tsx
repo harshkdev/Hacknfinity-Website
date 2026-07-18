@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown } from "lucide-react";
-import { UserButton, SignedIn, SignedOut, ClerkLoading, ClerkLoaded } from "@clerk/nextjs";
+import { useAuth, UserButton } from "@clerk/nextjs";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
@@ -46,6 +46,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const pathname = usePathname();
+  const { isLoaded, isSignedIn } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -148,28 +149,26 @@ export default function Navbar() {
           {/* Actions */}
           <div className="flex items-center justify-end gap-3 shrink-0">
             <div className="hidden sm:flex items-center gap-2 xl:gap-3">
-              <ClerkLoading>
+              {!isLoaded ? (
                 <div className="w-8 h-8 rounded-full bg-white/10 animate-pulse" />
-              </ClerkLoading>
-              <ClerkLoaded>
-                <SignedOut>
+              ) : !isSignedIn ? (
+                <>
                   <Link href="/sign-in" className="text-[14px] xl:text-[15px] whitespace-nowrap font-medium text-[var(--text-body)] hover:text-[var(--text-primary)] transition-colors px-2 xl:px-4 py-2">
                     Log In
                   </Link>
                   <Link href="/sign-up" className="btn-primary text-[14px] xl:text-[15px] whitespace-nowrap px-4 xl:px-6 py-2 xl:py-2.5">
                     Join Free
                   </Link>
-                </SignedOut>
-                <SignedIn>
-                  <UserButton 
-                    appearance={{
-                      elements: {
-                        userButtonAvatarBox: "w-10 h-10 border-2 border-purple-500/30 hover:border-purple-400 hover:shadow-[0_0_12px_rgba(168,85,247,0.6)] transition-all"
-                      }
-                    }}
-                  />
-                </SignedIn>
-              </ClerkLoaded>
+                </>
+              ) : (
+                <UserButton 
+                  appearance={{
+                    elements: {
+                      userButtonAvatarBox: "w-10 h-10 border-2 border-purple-500/30 hover:border-purple-400 hover:shadow-[0_0_12px_rgba(168,85,247,0.6)] transition-all"
+                    }
+                  }}
+                />
+              )}
             </div>
             
 
@@ -238,30 +237,28 @@ export default function Navbar() {
             ))}
 
             <div className="pt-3 flex flex-col gap-2 border-t border-[var(--border-subtle)]">
-              <ClerkLoading>
+              {!isLoaded ? (
                 <div className="h-10 rounded-lg bg-white/5 animate-pulse" />
-              </ClerkLoading>
-              <ClerkLoaded>
-                <SignedOut>
+              ) : !isSignedIn ? (
+                <>
                   <Link href="/sign-in" className="btn-secondary text-sm text-center">
                     Log In
                   </Link>
                   <Link href="/sign-up" className="btn-primary text-sm text-center">
                     Join Free
                   </Link>
-                </SignedOut>
-                <SignedIn>
-                  <div className="flex justify-center py-2">
-                    <UserButton 
-                      appearance={{
-                        elements: {
-                          userButtonAvatarBox: "w-10 h-10 border-2 border-purple-500/30 hover:border-purple-400 hover:shadow-[0_0_12px_rgba(168,85,247,0.6)] transition-all"
-                        }
-                      }}
-                    />
-                  </div>
-                </SignedIn>
-              </ClerkLoaded>
+                </>
+              ) : (
+                <div className="flex justify-center py-2">
+                  <UserButton 
+                    appearance={{
+                      elements: {
+                        userButtonAvatarBox: "w-10 h-10 border-2 border-purple-500/30 hover:border-purple-400 hover:shadow-[0_0_12px_rgba(168,85,247,0.6)] transition-all"
+                      }
+                    }}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>
