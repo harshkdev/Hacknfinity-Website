@@ -71,10 +71,11 @@ export default function RootLayout({
         colorTextSecondary: "#a1a1aa",
       },
       elements: {
-        userButtonPopoverCard: "bg-[#0d0d12] border border-purple-500/20",
+        userButtonPopoverCard: "bg-[#0d0d12] border border-purple-500/20 !text-white",
+        userButtonPopoverActionButton: "hover:bg-purple-500/10 hover:!text-white !text-white",
         userButtonPopoverActionButtonText: "!text-white",
-        userButtonPopoverActionButtonIcon: "!text-white",
-        userPreviewMainIdentifier: "!text-white font-medium",
+        userButtonPopoverActionButtonIconBox: "!text-white",
+        userPreviewMainIdentifier: "!text-white font-semibold",
         userPreviewSecondaryIdentifier: "!text-gray-400"
       }
     }}>
