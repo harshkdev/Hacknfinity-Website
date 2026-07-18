@@ -66,19 +66,16 @@ export default function RootLayout({
       baseTheme: dark,
       variables: { 
         colorPrimary: "#a855f7", 
-        colorBackground: "#0d0d12", 
-        colorInputBackground: "transparent", 
-        colorInputText: "white",
+        colorBackground: "#0d0d12",
         colorText: "white",
         colorTextSecondary: "#a1a1aa",
       },
       elements: {
-        userButtonPopoverCard: "bg-[#0d0d12] border border-purple-500/20 shadow-xl shadow-purple-500/10",
-        userPreviewMainIdentifier: "text-white font-medium",
-        userPreviewSecondaryIdentifier: "text-gray-400",
-        userButtonPopoverActionButton: "hover:bg-white/5",
-        userButtonPopoverActionButtonText: "text-white",
-        userButtonPopoverActionButtonIcon: "text-white"
+        userButtonPopoverCard: "bg-[#0d0d12] border border-purple-500/20",
+        userButtonPopoverActionButtonText: "!text-white",
+        userButtonPopoverActionButtonIcon: "!text-white",
+        userPreviewMainIdentifier: "!text-white font-medium",
+        userPreviewSecondaryIdentifier: "!text-gray-400"
       }
     }}>
       <html lang="en" suppressHydrationWarning>
