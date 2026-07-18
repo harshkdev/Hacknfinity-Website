@@ -161,13 +161,18 @@ export default function Navbar() {
                   </Link>
                 </>
               ) : (
-                <UserButton 
-                  appearance={{
-                    elements: {
-                      userButtonAvatarBox: "w-10 h-10 border-2 border-purple-500/30 hover:border-purple-400 hover:shadow-[0_0_12px_rgba(168,85,247,0.6)] transition-all"
-                    }
-                  }}
-                />
+                <div className="relative inline-flex items-center justify-center rounded-full p-[2px] bg-gradient-to-r from-purple-500 to-cyan-500 shadow-[0_0_12px_rgba(168,85,247,0.3)] hover:shadow-[0_0_20px_rgba(34,211,238,0.5)] transition-all cursor-pointer">
+                  <div className="bg-[#0d0d12] rounded-full p-[2px] flex items-center justify-center">
+                    <UserButton 
+                      appearance={{
+                        elements: {
+                          userButtonAvatarBox: "w-8 h-8 sm:w-9 sm:h-9",
+                          userButtonTrigger: "focus:outline-none focus:ring-0 flex items-center justify-center"
+                        }
+                      }}
+                    />
+                  </div>
+                </div>
               )}
             </div>
             
@@ -250,13 +255,18 @@ export default function Navbar() {
                 </>
               ) : (
                 <div className="flex justify-center py-2">
-                  <UserButton 
-                    appearance={{
-                      elements: {
-                        userButtonAvatarBox: "w-10 h-10 border-2 border-purple-500/30 hover:border-purple-400 hover:shadow-[0_0_12px_rgba(168,85,247,0.6)] transition-all"
-                      }
-                    }}
-                  />
+                  <div className="relative inline-flex items-center justify-center rounded-full p-[2px] bg-gradient-to-r from-purple-500 to-cyan-500 shadow-[0_0_12px_rgba(168,85,247,0.3)] hover:shadow-[0_0_20px_rgba(34,211,238,0.5)] transition-all cursor-pointer">
+                    <div className="bg-[#0d0d12] rounded-full p-[2px] flex items-center justify-center">
+                      <UserButton 
+                        appearance={{
+                          elements: {
+                            userButtonAvatarBox: "w-9 h-9",
+                            userButtonTrigger: "focus:outline-none focus:ring-0 flex items-center justify-center"
+                          }
+                        }}
+                      />
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
