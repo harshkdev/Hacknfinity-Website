@@ -45,7 +45,7 @@ export default function BlogPage() {
         </div>
         <div className="flex flex-wrap gap-2">
           {categories.map((c) => (
-            <button key={c} onClick={() => setCategory(c)} className={cn("px-4 py-1.5 rounded-full text-sm font-medium border transition-all", category === c ? "bg-gradient-to-r from-purple-500 to-cyan-500 text-white border-transparent" : "border-[var(--border-brand)] text-[var(--text-body)] hover:bg-purple-500/10")}>{c}</button>
+            <button key={c} onClick={() => setCategory(c)} className={cn("px-4 py-1.5 rounded-full text-sm font-medium border transition-all", category === c ? "bg-gradient-to-r from-[#a855f7] to-[#22d3ee] text-white border-transparent" : "border-[var(--border-brand)] text-[var(--text-body)] hover:bg-purple-500/10")}>{c}</button>
           ))}
         </div>
       </Container>

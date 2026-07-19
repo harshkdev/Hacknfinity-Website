@@ -51,7 +51,7 @@ export default function Footer() {
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
 
       {/* Newsletter section */}
-      <div className="bg-gradient-to-r from-purple-500/5 via-transparent to-cyan-500/5 border-b border-[var(--border-subtle)]">
+      <div className="bg-gradient-to-r from-[#a855f7]/5 via-transparent to-[#22d3ee]/5 border-b border-[var(--border-subtle)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="max-w-2xl mx-auto text-center block" style={{ marginLeft: 'auto', marginRight: 'auto' }}>
             <h3 className="font-display font-bold text-2xl text-[var(--text-primary)] mb-2">

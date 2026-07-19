@@ -110,7 +110,7 @@ export default function SponsorsPage() {
         {/* Community */}
         <div>
           <h2 className="font-display font-bold text-2xl text-[var(--text-primary)] mb-6">
-            <span className="px-3 py-1 bg-gradient-to-r from-purple-500/10 to-cyan-500/10 border border-purple-500/20 rounded-full text-purple-400 text-sm">Community Partners</span>
+            <span className="px-3 py-1 bg-gradient-to-r from-[#a855f7]/10 to-[#22d3ee]/10 border border-purple-500/20 rounded-full text-purple-400 text-sm">Community Partners</span>
           </h2>
           <div className="flex flex-wrap gap-4">
             {communitySponsors.map((s, i) => (

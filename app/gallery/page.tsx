@@ -56,7 +56,7 @@ export default function GalleryPage() {
         {events.map((ev) => (
           <button key={ev} onClick={() => setActiveEvent(ev)}
             className={cn("px-4 py-1.5 rounded-full text-sm font-medium border transition-all",
-              activeEvent === ev ? "bg-gradient-to-r from-purple-500 to-cyan-500 text-white border-transparent"
+              activeEvent === ev ? "bg-gradient-to-r from-[#a855f7] to-[#22d3ee] text-white border-transparent"
               : "border-[var(--border-brand)] text-[var(--text-body)] hover:bg-purple-500/10")}>
             {ev}
           </button>

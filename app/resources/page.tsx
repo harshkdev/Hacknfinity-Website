@@ -46,7 +46,7 @@ export default function ResourcesPage() {
       <Container className="mb-8 space-y-4">
         <div className="flex flex-wrap gap-2">
           {tabs.map(t=>(
-            <button key={t} onClick={()=>setTab(t)} className={cn("px-4 py-1.5 rounded-full text-sm font-semibold border transition-all", tab===t?"bg-gradient-to-r from-purple-500 to-cyan-500 text-white border-transparent":"border-[var(--border-brand)] text-[var(--text-body)] hover:bg-purple-500/10")}>{t}</button>
+            <button key={t} onClick={()=>setTab(t)} className={cn("px-4 py-1.5 rounded-full text-sm font-semibold border transition-all", tab===t?"bg-gradient-to-r from-[#a855f7] to-[#22d3ee] text-white border-transparent":"border-[var(--border-brand)] text-[var(--text-body)] hover:bg-purple-500/10")}>{t}</button>
           ))}
         </div>
         <div className="relative">

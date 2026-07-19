@@ -139,7 +139,7 @@ export default function Navbar() {
                 >
                   {link.label}
                   {pathname === link.href && (
-                    <span className="absolute inset-x-0 -bottom-1 h-[2px] rounded-full bg-gradient-to-r from-purple-400 to-cyan-400 shadow-[0_0_8px_rgba(168,85,247,0.8)]" />
+                    <span className="absolute inset-x-0 -bottom-1 h-[2px] rounded-full bg-gradient-to-r from-[#a855f7] to-[#22d3ee] shadow-[0_0_8px_rgba(168,85,247,0.8)]" />
                   )}
                 </Link>
               )
@@ -161,7 +161,7 @@ export default function Navbar() {
                   </Link>
                 </>
               ) : (
-                <div className="relative inline-flex items-center justify-center rounded-full p-[2px] bg-gradient-to-r from-purple-500 to-cyan-500 shadow-[0_0_12px_rgba(168,85,247,0.3)] hover:shadow-[0_0_20px_rgba(34,211,238,0.5)] transition-all cursor-pointer">
+                <div className="relative inline-flex items-center justify-center rounded-full p-[2px] bg-gradient-to-r from-[#a855f7] to-[#22d3ee] shadow-[0_0_12px_rgba(168,85,247,0.3)] hover:shadow-[0_0_20px_rgba(34,211,238,0.5)] transition-all cursor-pointer">
                   <div className="bg-[#0d0d12] rounded-full p-[2px] flex items-center justify-center">
                     <UserButton 
                       appearance={{
@@ -255,7 +255,7 @@ export default function Navbar() {
                 </>
               ) : (
                 <div className="flex justify-center py-2">
-                  <div className="relative inline-flex items-center justify-center rounded-full p-[2px] bg-gradient-to-r from-purple-500 to-cyan-500 shadow-[0_0_12px_rgba(168,85,247,0.3)] hover:shadow-[0_0_20px_rgba(34,211,238,0.5)] transition-all cursor-pointer">
+                  <div className="relative inline-flex items-center justify-center rounded-full p-[2px] bg-gradient-to-r from-[#a855f7] to-[#22d3ee] shadow-[0_0_12px_rgba(168,85,247,0.3)] hover:shadow-[0_0_20px_rgba(34,211,238,0.5)] transition-all cursor-pointer">
                     <div className="bg-[#0d0d12] rounded-full p-[2px] flex items-center justify-center">
                       <UserButton 
                         appearance={{

@@ -90,7 +90,7 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
               <div className="grid sm:grid-cols-2 gap-3">
                 {event.highlights.map((h: string)=>(
                   <div key={h} className="flex items-center gap-3 glass-card px-4 py-3">
-                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-500 to-cyan-500 flex items-center justify-center flex-shrink-0"><Check className="w-3.5 h-3.5 text-white"/></div>
+                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#a855f7] to-[#22d3ee] flex items-center justify-center flex-shrink-0"><Check className="w-3.5 h-3.5 text-white"/></div>
                     <span className="text-sm text-[var(--text-body)]">{h}</span>
                   </div>
                 ))}
@@ -145,7 +145,7 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
                   <span>{event.attendees} registered</span><span>{event.maxAttendees} spots</span>
                 </div>
                 <div className="h-2 bg-white/5 rounded-full overflow-hidden">
-                  <div className="h-full rounded-full bg-gradient-to-r from-purple-500 to-cyan-500" style={{width:`${attendeePct}%`}}/>
+                  <div className="h-full rounded-full bg-gradient-to-r from-[#a855f7] to-[#22d3ee]" style={{width:`${attendeePct}%`}}/>
                 </div>
                 <div className="text-xs text-right text-[var(--text-muted)] mt-1">{attendeePct}% full</div>
               </div>

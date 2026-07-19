@@ -57,12 +57,12 @@ export default function DashboardPage() {
       <main className="flex-1 p-6 sm:p-8 overflow-y-auto">
         {/* Mobile tabs */}
         <div className="lg:hidden flex gap-2 flex-wrap mb-6">
-          {tabs.map(t=><button key={t.id} onClick={()=>setActiveTab(t.id)} className={cn("flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all",activeTab===t.id?"bg-gradient-to-r from-purple-500 to-cyan-500 text-white border-transparent":"border-[var(--border-brand)] text-[var(--text-body)]")}>{t.icon}{t.label}</button>)}
+          {tabs.map(t=><button key={t.id} onClick={()=>setActiveTab(t.id)} className={cn("flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all",activeTab===t.id?"bg-gradient-to-r from-[#a855f7] to-[#22d3ee] text-white border-transparent":"border-[var(--border-brand)] text-[var(--text-body)]")}>{t.icon}{t.label}</button>)}
         </div>
 
         {activeTab==="profile" && (
           <motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}}>
-            <div className="h-32 rounded-2xl bg-gradient-to-r from-purple-500/30 via-pink-500/20 to-cyan-500/20 relative mb-16">
+            <div className="h-32 rounded-2xl bg-gradient-to-r from-[#a855f7]/30 to-[#22d3ee]/20 relative mb-16">
               <div className="absolute -bottom-12 left-6">
                 <Image src={mockUser.avatar} alt={mockUser.name} width={80} height={80} className="rounded-full ring-4 ring-[#050507]"/>
               </div>
@@ -74,7 +74,7 @@ export default function DashboardPage() {
                 <p className="text-sm text-[var(--text-muted)]">{mockUser.email} · {mockUser.college} · {mockUser.year}</p>
                 <p className="text-xs text-[var(--text-muted)] mt-1">Joined {formatDate(mockUser.joinedAt)}</p>
               </div>
-              <span className="px-4 py-2 rounded-full text-sm font-bold bg-gradient-to-r from-purple-500/20 to-cyan-500/20 border border-purple-500/30 text-gradient">⭐ {mockUser.points.toLocaleString()} XP</span>
+              <span className="px-4 py-2 rounded-full text-sm font-bold bg-gradient-to-r from-[#a855f7]/20 to-[#22d3ee]/20 border border-purple-500/30 text-gradient">⭐ {mockUser.points.toLocaleString()} XP</span>
             </div>
             <p className="text-[var(--text-body)] mb-5">{mockUser.bio}</p>
             <div className="flex gap-3 mb-8">
@@ -132,7 +132,7 @@ export default function DashboardPage() {
             <h2 className="font-display font-bold text-2xl text-[var(--text-primary)] mb-2">Badges & Points</h2>
             <div className="glass-card p-5 mb-6">
               <div className="flex justify-between text-sm mb-2"><span className="text-[var(--text-body)]">Level 5 — Rising Star</span><span className="text-[var(--text-muted)]">2,450 / 3,000 XP</span></div>
-              <div className="h-3 bg-white/5 rounded-full overflow-hidden"><div className="h-full rounded-full bg-gradient-to-r from-purple-500 to-cyan-500" style={{width:"82%"}}/></div>
+              <div className="h-3 bg-white/5 rounded-full overflow-hidden"><div className="h-full rounded-full bg-gradient-to-r from-[#a855f7] to-[#22d3ee]" style={{width:"82%"}}/></div>
               <div className="text-xs text-[var(--text-muted)] mt-1">550 XP to next level</div>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">

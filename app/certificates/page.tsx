@@ -21,7 +21,7 @@ export default function CertificatesPage() {
     <div className="min-h-screen bg-[#050507] pt-24">
       <section className="section-glow-top py-20 px-4 text-center">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
-          <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-purple-500/20 to-cyan-500/20 border border-purple-500/20 flex items-center justify-center mx-auto mb-6">
+          <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-[#a855f7]/20 to-[#22d3ee]/20 border border-purple-500/20 flex items-center justify-center mx-auto mb-6">
             <Shield className="w-10 h-10 text-purple-400" />
           </div>
           <h1 className="font-display font-extrabold text-5xl sm:text-6xl text-[var(--text-primary)] mb-4">Certificate <span className="text-gradient">Verification</span></h1>

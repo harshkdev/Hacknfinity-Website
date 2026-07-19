@@ -56,7 +56,7 @@ export default function EventsPage() {
         <Container className="space-y-3">
           <div className="flex flex-wrap gap-2">
             {statusTabs.map((t) => (
-              <button key={t} onClick={() => setStatus(t)} className={cn("px-4 py-1.5 rounded-full text-sm font-semibold border transition-all", status === t ? "bg-gradient-to-r from-purple-500 to-cyan-500 text-white border-transparent" : "border-[var(--border-brand)] text-[var(--text-body)] hover:bg-purple-500/10")}>
+              <button key={t} onClick={() => setStatus(t)} className={cn("px-4 py-1.5 rounded-full text-sm font-semibold border transition-all", status === t ? "bg-gradient-to-r from-[#a855f7] to-[#22d3ee] text-white border-transparent" : "border-[var(--border-brand)] text-[var(--text-body)] hover:bg-purple-500/10")}>
                 {t}
               </button>
             ))}

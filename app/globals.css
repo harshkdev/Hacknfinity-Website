@@ -6,8 +6,8 @@
   --font-space-grotesk: "Space Grotesk", system-ui, sans-serif;
 
   /* Brand Gradient */
-  --gradient-brand: linear-gradient(135deg, #a855f7 0%, #d946ef 35%, #22d3ee 70%, #3b82f6 100%);
-  --gradient-brand-r: linear-gradient(to right, #a855f7, #d946ef, #22d3ee, #3b82f6);
+  --gradient-brand: linear-gradient(135deg, #a855f7 0%, #22d3ee 100%);
+  --gradient-brand-r: linear-gradient(to right, #a855f7, #22d3ee);
 
   /* Dark theme defaults */
   --bg-base: #050507;
@@ -75,10 +75,7 @@ body {
   background: linear-gradient(
     90deg,
     #a855f7 0%,
-    #d946ef 20%,
-    #22d3ee 40%,
-    #3b82f6 60%,
-    #d946ef 80%,
+    #22d3ee 50%,
     #a855f7 100%
   );
   background-size: 200% auto;

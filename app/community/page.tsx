@@ -62,7 +62,7 @@ export default function CommunityPage() {
           <button onClick={()=>setShowModal(true)} className="btn-primary text-sm px-5"><Plus className="w-4 h-4"/>New Thread</button>
         </div>
         <div className="flex flex-wrap gap-2 mb-8">
-          {cats.map(c=><button key={c} onClick={()=>setCat(c)} className={cn("px-4 py-1.5 rounded-full text-sm font-medium border transition-all",cat===c?"bg-gradient-to-r from-purple-500 to-cyan-500 text-white border-transparent":"border-[var(--border-brand)] text-[var(--text-body)] hover:bg-purple-500/10")}>{c}</button>)}
+          {cats.map(c=><button key={c} onClick={()=>setCat(c)} className={cn("px-4 py-1.5 rounded-full text-sm font-medium border transition-all",cat===c?"bg-gradient-to-r from-[#a855f7] to-[#22d3ee] text-white border-transparent":"border-[var(--border-brand)] text-[var(--text-body)] hover:bg-purple-500/10")}>{c}</button>)}
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">

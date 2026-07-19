@@ -43,7 +43,7 @@ export default function OpportunitiesPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-8 space-y-3">
         <div className="flex flex-wrap gap-2">
-          {typeTabs.map(t=><button key={t} onClick={()=>setType(t)} className={cn("px-4 py-1.5 rounded-full text-sm font-semibold border transition-all",type===t?"bg-gradient-to-r from-purple-500 to-cyan-500 text-white border-transparent":"border-[var(--border-brand)] text-[var(--text-body)] hover:bg-purple-500/10")}>{t}</button>)}
+          {typeTabs.map(t=><button key={t} onClick={()=>setType(t)} className={cn("px-4 py-1.5 rounded-full text-sm font-semibold border transition-all",type===t?"bg-gradient-to-r from-[#a855f7] to-[#22d3ee] text-white border-transparent":"border-[var(--border-brand)] text-[var(--text-body)] hover:bg-purple-500/10")}>{t}</button>)}
         </div>
         <div className="flex flex-wrap gap-2">
           {domains.map(d=><button key={d} onClick={()=>setDomain(d)} className={cn("px-3 py-1 rounded-full text-xs font-medium border transition-all",domain===d?"border-purple-500 text-purple-400 bg-purple-500/10":"border-[var(--border-subtle)] text-[var(--text-muted)] hover:border-purple-500/50")}>{d}</button>)}

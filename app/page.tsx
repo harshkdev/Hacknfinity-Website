@@ -161,7 +161,7 @@ export default function HomePage() {
               className="font-display font-extrabold text-5xl sm:text-6xl lg:text-7xl xl:text-[80px] leading-[0.95] tracking-tight mb-8"
             >
               Build. Hack.<br />
-              <span className="text-gradient-shimmer">Grow Together.</span>
+              <span className="text-gradient">Grow Together.</span>
             </motion.h1>
 
             {/* Subtext */}
@@ -266,7 +266,7 @@ export default function HomePage() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1, duration: 0.5 }}
                 >
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500/20 to-cyan-500/20 flex items-center justify-center mb-4 border border-purple-500/20">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#a855f7]/20 to-[#22d3ee]/20 flex items-center justify-center mb-4 border border-purple-500/20">
                     {Icon && <Icon className="w-6 h-6 text-purple-400" />}
                   </div>
                   <div className="stat-number">
@@ -296,7 +296,7 @@ export default function HomePage() {
           <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {[
               { icon: <Zap className="w-6 h-6 text-fuchsia-400" />, bg: "from-fuchsia-500/20 to-purple-500/20", border: "border-fuchsia-500/20", title: "Hackathons & Competitions", desc: "Win ₹10L+ in prizes. Build real products in 48 hours. Get noticed by top companies.", link: "/events?category=Hackathon" },
-              { icon: <BookOpen className="w-6 h-6 text-purple-400" />, bg: "from-purple-500/20 to-cyan-500/20", border: "border-purple-500/20", title: "Workshops & Learning", desc: "Free workshops, bootcamps, and live sessions on React, AI, DSA, Web3, and more.", link: "/events?category=Workshop" },
+              { icon: <BookOpen className="w-6 h-6 text-purple-400" />, bg: "from-[#a855f7]/20 to-[#22d3ee]/20", border: "border-purple-500/20", title: "Workshops & Learning", desc: "Free workshops, bootcamps, and live sessions on React, AI, DSA, Web3, and more.", link: "/events?category=Workshop" },
               { icon: <Heart className="w-6 h-6 text-cyan-400" />, bg: "from-cyan-500/20 to-blue-500/20", border: "border-cyan-500/20", title: "Community & Network", desc: "8,500+ peers, industry mentors, alumni at top companies. Your next co-founder is here.", link: "/community" },
             ].map((item, i) => (
               <motion.div
