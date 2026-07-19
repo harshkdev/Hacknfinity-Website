@@ -54,7 +54,6 @@ export const metadata: Metadata = {
 };
 
 import { ClerkProvider } from "@clerk/nextjs";
-import { dark } from "@clerk/themes";
 
 export default function RootLayout({
   children,
@@ -63,14 +62,9 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider appearance={{ 
-      baseTheme: dark,
       variables: { 
         colorPrimary: "#a855f7", 
-        colorBackground: "#0d0d12",
-        colorText: "#ffffff",
-        colorTextSecondary: "#a1a1aa",
-        colorInputBackground: "#1e1e2d",
-        colorInputText: "#ffffff",
+        colorBackground: "#0d0d12"
       },
       elements: {
         card: "bg-[#0d0d12]",

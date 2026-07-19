@@ -6,7 +6,7 @@ import { Plus, Trash2, Image as ImageIcon } from "lucide-react";
 import toast from "react-hot-toast";
 
 export default function AdminSponsorsPage() {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [isFormOpen, setIsFormOpen] = useState(false);
 

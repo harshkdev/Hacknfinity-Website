@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { resources } from "@/data/mock";
 import type { Resource } from "@/types";
-import { FileText, Download, Search, Github, Play, Map, Table2, ArrowRight, BookOpen } from "lucide-react";
+import { FileText, Download, Search, GitBranch, Play, Map, Table2, ArrowRight, BookOpen } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { cn, formatDate } from "@/lib/utils";
@@ -12,7 +12,7 @@ import { cn, formatDate } from "@/lib/utils";
 const typeIcons: Record<string, React.ReactNode> = {
   Notes: <FileText className="w-6 h-6" />, PPT: <BookOpen className="w-6 h-6" />,
   Roadmap: <Map className="w-6 h-6" />, Recording: <Play className="w-6 h-6" />,
-  Sheet: <Table2 className="w-6 h-6" />, Repo: <Github className="w-6 h-6" />,
+  Sheet: <Table2 className="w-6 h-6" />, Repo: <GitBranch className="w-6 h-6" />,
 };
 const typeColors: Record<string, string> = {
   Notes: "from-blue-500/20 to-indigo-500/20 border-blue-500/20 text-blue-400",
@@ -71,7 +71,7 @@ export default function ResourcesPage() {
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-[var(--text-muted)] flex items-center gap-1"><Download className="w-3 h-3"/>{r.downloads.toLocaleString()}</span>
                   {r.type === "Repo" ? (
-                    <a href={r.repoUrl||"#"} target="_blank" rel="noopener noreferrer" className="btn-secondary text-xs px-4 py-1.5 flex items-center gap-1"><Github className="w-3 h-3"/>View Repo</a>
+                    <a href={r.repoUrl||"#"} target="_blank" rel="noopener noreferrer" className="btn-secondary text-xs px-4 py-1.5 flex items-center gap-1"><GitBranch className="w-3 h-3"/>View Repo</a>
                   ) : (
                     <a href={r.downloadUrl||"#"} className="btn-primary text-xs px-4 py-1.5 flex items-center gap-1"><Download className="w-3 h-3"/>Download</a>
                   )}

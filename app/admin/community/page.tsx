@@ -5,7 +5,7 @@ import { Trash2, Pin, CheckCircle, MessageSquare } from "lucide-react";
 import toast from "react-hot-toast";
 
 export default function AdminCommunityPage() {
-  const [threads, setThreads] = useState([]);
+  const [threads, setThreads] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

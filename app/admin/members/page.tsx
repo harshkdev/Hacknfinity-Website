@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { CldUploadWidget } from "next-cloudinary";
-import { Plus, Trash2, Image as ImageIcon, Pencil, GraduationCap, GithubIcon, TwitterIcon, LinkedinIcon } from "lucide-react";
+import { Plus, Trash2, Image as ImageIcon, Pencil, GraduationCap } from "lucide-react";
 import toast from "react-hot-toast";
 
 export default function AdminTeamPage() {
-  const [members, setMembers] = useState([]);
+  const [members, setMembers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editId, setEditId] = useState<string | null>(null);

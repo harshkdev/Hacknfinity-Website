@@ -6,7 +6,7 @@ import { Plus, Trash2, Image as ImageIcon, Pencil } from "lucide-react";
 import toast from "react-hot-toast";
 
 export default function AdminEventsPage() {
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editId, setEditId] = useState<string | null>(null);

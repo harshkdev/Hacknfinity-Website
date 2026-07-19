@@ -22,7 +22,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </nav>
           <div className="mt-auto border-t border-[var(--border-subtle)] pt-4 px-2">
             <div className="flex items-center gap-3 text-[var(--text-body)]">
-              <UserButton afterSignOutUrl="/" />
+              <UserButton />
               <span className="text-sm font-medium">Account Settings</span>
             </div>
           </div>

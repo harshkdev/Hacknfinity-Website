@@ -1,5 +1,4 @@
 import { SignIn } from "@clerk/nextjs";
-import { dark } from "@clerk/themes";
 
 export default function SignInPage() {
   return (
@@ -15,14 +14,9 @@ export default function SignInPage() {
           </div>
         </div>
         <SignIn routing="hash" appearance={{ 
-          baseTheme: dark,
           variables: { 
             colorPrimary: "#a855f7", 
             colorBackground: "#0d0d12", 
-            colorInputBackground: "transparent", 
-            colorInputText: "white",
-            colorText: "white",
-            colorTextSecondary: "#a1a1aa",
           },
           elements: { 
             card: "border border-purple-500/20 shadow-xl shadow-purple-500/10",
