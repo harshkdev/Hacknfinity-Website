@@ -16,8 +16,8 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { Section } from "@/components/ui/Section";
 
-// ─── Particle Canvas ────────────────────────────────────────────────────────
-function ParticleField() {
+// ─── Infinity Hero Background ────────────────────────────────────────────────
+function InfinityHeroBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -25,38 +25,175 @@ function ParticleField() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     let animId: number;
+    let t = 0;
+
     const resize = () => {
       canvas.width = canvas.offsetWidth;
       canvas.height = canvas.offsetHeight;
     };
     resize();
     window.addEventListener("resize", resize);
-    const particles = Array.from({ length: 70 }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.3,
-      vy: (Math.random() - 0.5) * 0.3,
-      r: Math.random() * 1.5 + 0.5,
-      o: Math.random() * 0.4 + 0.1,
+
+    // ── Lemniscate (∞) parametric: Bernoulli ─────────────────────────────────
+    // x = a·cos(t)/(1+sin²(t))  y = a·sin(t)cos(t)/(1+sin²(t))
+    function getInfinityPoint(angle: number, a: number, cx: number, cy: number) {
+      const denom = 1 + Math.sin(angle) ** 2;
+      return {
+        x: cx + a * Math.cos(angle) / denom,
+        y: cy + a * Math.sin(angle) * Math.cos(angle) / denom,
+      };
+    }
+
+    // ── Stars ─────────────────────────────────────────────────────────────────
+    const stars = Array.from({ length: 160 }, () => ({
+      x: Math.random(),
+      y: Math.random(),
+      r: Math.random() * 1.2 + 0.2,
+      o: Math.random() * 0.5 + 0.1,
+      twinkleSpeed: Math.random() * 0.02 + 0.005,
+      twinkleOffset: Math.random() * Math.PI * 2,
     }));
+
+    // ── Flowing particles along the ∞ path ───────────────────────────────────
+    const flowParticles = Array.from({ length: 32 }, (_, i) => ({
+      t: (i / 32) * Math.PI * 2,
+      speed: 0.004 + Math.random() * 0.004,
+      size: Math.random() * 3 + 1.5,
+      trail: [] as {x:number,y:number}[],
+      color: Math.random() > 0.5 ? 0 : 1, // 0=purple 1=cyan
+    }));
+
+    // ── Free-floating dust particles ─────────────────────────────────────────
+    const dust = Array.from({ length: 55 }, () => ({
+      x: Math.random(),
+      y: Math.random(),
+      vx: (Math.random() - 0.5) * 0.0003,
+      vy: (Math.random() - 0.5) * 0.0003,
+      r: Math.random() * 1.5 + 0.3,
+      o: Math.random() * 0.25 + 0.05,
+    }));
+
     const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach((p) => {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+      t += 0.006;
+      const W = canvas.width;
+      const H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+
+      // ── Subtle neon grid ──────────────────────────────────────────────────
+      const gridSpacing = 80;
+      ctx.lineWidth = 0.3;
+      ctx.strokeStyle = "rgba(139,92,246,0.06)";
+      for (let x = 0; x < W; x += gridSpacing) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+      }
+      for (let y = 0; y < H; y += gridSpacing) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+      }
+
+      // ── Twinkling stars ──────────────────────────────────────────────────
+      stars.forEach((s) => {
+        const alpha = s.o * (0.5 + 0.5 * Math.sin(t * s.twinkleSpeed * 60 + s.twinkleOffset));
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(168,85,247,${p.o})`;
+        ctx.arc(s.x * W, s.y * H, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(200,180,255,${alpha})`;
         ctx.fill();
       });
+
+      // ── Infinity symbol — pushed to lower 25% of hero, well below text ──
+      const cx = W * 0.5;
+      const cy = H * 0.78;          // bottom quarter — never overlaps headline
+      const a  = Math.min(W, H) * 0.20; // smaller radius
+      const STEPS = 300;
+
+      // Soft outer glow (3 passes, reduced opacity)
+      for (let pass = 0; pass < 3; pass++) {
+        const blur  = [24, 12, 5][pass];
+        const alpha = [0.04, 0.07, 0.12][pass]; // ↓ from 0.06/0.1/0.18
+        ctx.save();
+        ctx.filter = `blur(${blur}px)`;
+        ctx.beginPath();
+        for (let i = 0; i <= STEPS; i++) {
+          const angle = (i / STEPS) * Math.PI * 2;
+          const p = getInfinityPoint(angle, a, cx, cy);
+          i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
+        }
+        ctx.closePath();
+        const grad = ctx.createLinearGradient(cx - a, cy, cx + a, cy);
+        grad.addColorStop(0,   `rgba(139,92,246,${alpha})`);
+        grad.addColorStop(0.5, `rgba(0,217,255,${alpha})`);
+        grad.addColorStop(1,   `rgba(139,92,246,${alpha})`);
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = [14, 6, 2][pass];
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // Crisp stroke on top (reduced to 35% opacity)
+      ctx.beginPath();
+      for (let i = 0; i <= STEPS; i++) {
+        const angle = (i / STEPS) * Math.PI * 2;
+        const p = getInfinityPoint(angle, a, cx, cy);
+        i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
+      }
+      ctx.closePath();
+      const strokeGrad = ctx.createLinearGradient(cx - a, cy, cx + a, cy);
+      strokeGrad.addColorStop(0,   "rgba(139,92,246,0.35)");
+      strokeGrad.addColorStop(0.5, "rgba(0,217,255,0.35)");
+      strokeGrad.addColorStop(1,   "rgba(139,92,246,0.35)");
+      ctx.strokeStyle = strokeGrad;
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+
+      // ── Flowing particles along the ∞ path ─────────────────────────────
+      flowParticles.forEach((fp) => {
+        fp.t = (fp.t + fp.speed) % (Math.PI * 2);
+        const p = getInfinityPoint(fp.t, a, cx, cy);
+        fp.trail.push({ x: p.x, y: p.y });
+        if (fp.trail.length > 14) fp.trail.shift();
+
+        // trail
+        fp.trail.forEach((pt, i) => {
+          const prog = i / fp.trail.length;
+          const col = fp.color === 0
+            ? `rgba(168,85,247,${prog * 0.7})`
+            : `rgba(34,211,238,${prog * 0.7})`;
+          ctx.beginPath();
+          ctx.arc(pt.x, pt.y, fp.size * prog * 0.8, 0, Math.PI * 2);
+          ctx.fillStyle = col;
+          ctx.fill();
+        });
+
+        // head with glow
+        ctx.save();
+        ctx.filter = "blur(3px)";
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, fp.size * 1.8, 0, Math.PI * 2);
+        ctx.fillStyle = fp.color === 0 ? "rgba(168,85,247,0.9)" : "rgba(34,211,238,0.9)";
+        ctx.fill();
+        ctx.restore();
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, fp.size, 0, Math.PI * 2);
+        ctx.fillStyle = fp.color === 0 ? "#a855f7" : "#22d3ee";
+        ctx.fill();
+      });
+
+      // ── Floating dust ───────────────────────────────────────────────────
+      dust.forEach((d) => {
+        d.x = (d.x + d.vx + 1) % 1;
+        d.y = (d.y + d.vy + 1) % 1;
+        ctx.beginPath();
+        ctx.arc(d.x * W, d.y * H, d.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(168,85,247,${d.o})`;
+        ctx.fill();
+      });
+
       animId = requestAnimationFrame(draw);
     };
     draw();
     return () => { cancelAnimationFrame(animId); window.removeEventListener("resize", resize); };
   }, []);
-  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" id="particle-canvas" />;
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />;
 }
 
 // ─── Stat Icons ──────────────────────────────────────────────────────────────
@@ -132,11 +269,13 @@ export default function HomePage() {
 
       {/* ─── HERO ─── */}
       <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-28 pb-12">
-        <ParticleField />
-        {/* Gradient blobs */}
-        <div className="absolute top-1/4 -left-32 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-1/4 -right-32 w-[500px] h-[500px] bg-cyan-500/8 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute -bottom-32 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-purple-500/10 rounded-full blur-[120px] pointer-events-none" />
+        {/* Diagonal gradient wash */}
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-600/8 via-transparent to-cyan-500/6 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050507]/60 via-transparent to-transparent pointer-events-none" />
+        {/* Soft accent orbs */}
+        <div className="absolute top-1/3 -left-24 w-[400px] h-[400px] bg-purple-600/8 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-1/3 -right-24 w-[350px] h-[350px] bg-cyan-500/6 rounded-full blur-[100px] pointer-events-none" />
+
 
         {/* ── Two-column layout on lg, single column below ── */}
         <div className="w-full block">
@@ -155,10 +294,10 @@ export default function HomePage() {
               </span>
             </motion.div>
 
-            {/* Headline */}
+            {/* Headline — Enhancement 1: slightly larger, tighter leading */}
             <motion.h1
               variants={fadeUp}
-              className="font-display font-extrabold text-5xl sm:text-6xl lg:text-7xl xl:text-[80px] leading-[0.95] tracking-tight mb-8"
+              className="font-display font-extrabold text-5xl sm:text-[64px] lg:text-[76px] xl:text-[92px] leading-[0.9] tracking-[-0.02em] mb-8"
             >
               Build. Hack.<br />
               <span className="text-gradient">Grow Together.</span>
@@ -202,8 +341,30 @@ export default function HomePage() {
           >
             {/* Ambient cyan glow behind card */}
             <div className="absolute inset-0 bg-cyan-500/20 blur-[100px] rounded-full pointer-events-none" />
-            
-            <div className="glass-card p-6 text-left font-mono relative z-10 animate-float shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] border-white/10">
+
+            {/* ── Enhancement 4a: Floating badge — top-right of widget ── */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.1 }}
+              className="absolute -top-4 -right-6 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#a855f7]/30 bg-[#0d0d12]/80 backdrop-blur-md shadow-lg shadow-purple-500/10"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-[#a855f7] shadow-[0_0_6px_#a855f7] animate-pulse" />
+              <span className="text-[10px] font-semibold tracking-widest uppercase text-purple-300">Community Live</span>
+            </motion.div>
+
+            {/* ── Enhancement 4b: Floating badge — bottom-left of widget ── */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.3 }}
+              className="absolute -bottom-4 -left-6 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#22d3ee]/25 bg-[#0d0d12]/80 backdrop-blur-md shadow-lg shadow-cyan-500/10"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-[#22d3ee] shadow-[0_0_6px_#22d3ee] animate-pulse" style={{ animationDelay: "0.5s" }} />
+              <span className="text-[10px] font-semibold tracking-widest uppercase text-cyan-300">Events &amp; Sessions</span>
+            </motion.div>
+
+            <div className="relative z-10 animate-float p-6 text-left font-mono rounded-2xl border border-purple-500/20 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.7)] backdrop-blur-xl" style={{ background: "rgba(10,10,18,0.92)" }}>
               {/* Window chrome */}
               <div className="flex items-center gap-1.5 mb-4">
                 <div className="w-3 h-3 rounded-full bg-red-500/70" />
